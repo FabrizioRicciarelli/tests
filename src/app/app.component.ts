@@ -11,13 +11,12 @@ import { NgSwitch } from '@angular/common';
 })
 export class AppComponent {
   title = 'tests';
-/*   public imgBasePath = '../img/';
- */  public frameworks: string[] = ['Angular', 'React', 'Ember'];
+  public frameworks: string[] = ['Angular', 'React', 'Ember'];
   public selectedcar = 'Ferrari';
   public imgs = [
-    { name: 'Angular', url: './img/MiniA.png' },
-    { name: 'React', url: './img/MiniMap.png' },
-    { name: 'Ember', url: './img/MiniA.png' }
+    { name: 'Angular', url: 'assets/img/MiniA.png' },
+    { name: 'React', url: 'assets/MiniMaps.png' },
+    { name: 'Ember', url: 'assets/MiniN.png' }
   ];
   // todo
   model = new Model();
@@ -41,9 +40,7 @@ export class AppComponent {
     return classes;
   }
   getImgUrl(framework) {
-    const result = this.imgs.filter(f => f.name === framework);
-/*     console.log(result[0].url);
- */    return result[0].url;
+    return this.imgs.filter(f => f.name === framework)[0].url;
   }
 }
 

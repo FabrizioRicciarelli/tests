@@ -123,11 +123,18 @@ app.component.html<br>
 <h3>src (senza asterisco davanti, racchiuso tra parentesi quadre)</h3>
 <pre ngNonBindable>
 app.component.ts<br>
-public imgs = [ &#123; name: 'Angular', url: 'img/MiniA.png' &#125;, &#123; name: 'React', url: 'img/MiniMap.png' &#125; ];
+public imgs = [
+    &#123; name: 'Angular', url: 'assets/img/MiniA.png' &#125;,
+    &#123; name: 'React', url: 'assets/MiniMaps.png' &#125;,
+    &#123; name: 'Ember', url: 'assets/MiniN.png' &#125;
+  ];
+getImgUrl(framework) &#123;
+  return this.imgs.filter(f => f.name === framework)[0].url;
+&#125;
 app.component.html<br>
 &lt;ul&gt;
   &lt;li *ngFor="let framework of frameworks"&gt;
-    &lt;span [ngClass]="geClasses(framework)"&gt;{{framework}}&lt;/span&gt;
+    &lt;span [src]="getImgUrl(framework)"&gt;{{framework}}&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;  
 </pre>
