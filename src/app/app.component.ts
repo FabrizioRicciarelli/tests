@@ -13,10 +13,11 @@ export class AppComponent {
   title = 'tests';
   public frameworks: string[] = ['Angular', 'React', 'Ember'];
   public selectedcar = 'Ferrari';
+  public message: string;
   public imgs = [
-    { name: 'Angular', url: 'assets/img/MiniA.png' },
-    { name: 'React', url: 'assets/img/MiniMaps.png' },
-    { name: 'Ember', url: 'assets/img/MiniN.png' }
+    { name: 'Angular', url: 'assets/img/angularLogo.png' },
+    { name: 'React', url: 'assets/img/reactLogo.png' },
+    { name: 'Ember', url: 'assets/img/emberLogo.jpg' }
   ];
   // todo
   model = new Model();
@@ -41,6 +42,9 @@ export class AppComponent {
   }
   getImgUrl(framework) {
     return this.imgs.filter(f => f.name === framework)[0].url;
+  }
+  showMessage(msg) {
+    this.message = msg.target.value;
   }
 }
 

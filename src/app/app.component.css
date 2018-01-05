@@ -1,10 +1,10 @@
-div, p, li {
+div, p, td, th {
     color: steelblue;
     font-family: tahoma;
     font-size:14pt;
 }
 
-li, span {
+li, .small {
     color: steelblue;
     font-family: tahoma;
     font-size:9pt;
@@ -24,7 +24,7 @@ img {
     vertical-align: middle;
 }
 
-.red { color: red; }
+.red { color: red; font-weight:bolder; }
 .orange { color: orange; }
 .royal { color: royalblue;  }
 .bolder { font-weight: bold; text-decoration: underline;}

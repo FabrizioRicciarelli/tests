@@ -71,7 +71,7 @@ app.component.html<br>
   *ngSwitchCase=<b class="royal">"</b><b class="red">'</b>Ferrari<b class="red">'</b><b class="royal">"</b>
 </p>
 <h4>Results in</h4>
-<div [ngSwitch]="selectedcar">
+<div [ngSwitch]="selectedcar" class="small">
   <span *ngSwitchCase="'Bugatti'">I am Bugatti</span>
   <span *ngSwitchCase="'Mustang'">I am Mustang</span>
   <span *ngSwitchCase="'Ferrari'">I am Ferrari</span>
@@ -124,9 +124,9 @@ app.component.html<br>
 <pre ngNonBindable>
 app.component.ts<br>
 public imgs = [
-    &#123; name: 'Angular', url: 'assets/img/MiniA.png' &#125;,
-    &#123; name: 'React', url: 'assets/MiniMaps.png' &#125;,
-    &#123; name: 'Ember', url: 'assets/MiniN.png' &#125;
+    &#123; name: 'Angular', url: '<span class="red">assets/img/</span>angularLogo.png' &#125;,
+    &#123; name: 'React', url: '<span class="red">assets/img/</span>reactLogo.png' &#125;,
+    &#123; name: 'Ember', url: '<span class="red">assets/img/</span>emberLogo.png' &#125;
   ];
 getImgUrl(framework) &#123;
   return this.imgs.filter(f => f.name === framework)[0].url;
@@ -141,12 +141,24 @@ app.component.html<br>
     &lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr *ngFor="let framework of frameworks"&gt;
-        &lt;td align="center" width="20%"&gt;&lt;img <span class="red">[src]</span>="getImgUrl(framework)" alt="cover image"/&gt;&lt;/td&gt;
+        &lt;td align="center" width="20%"&gt;&lt;img <span class="red">[src]</span>="getImgUrl(framework)" alt="logo image" width="50" height="50"/&gt;&lt;/td&gt;
         &lt;td&gt;&lt;span [ngClass]="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;&lt;/td&gt;
       &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;
 </pre>
+<p>
+    Attenzione!!! I percorsi relativi non esistono più in Angular 5, al loro posto è stato introdotto un complesso sistema di routing. Per evitare
+    di allestire tale complesso sistema, un metodo veloce per raggruppare immagini, media, ed altri elementi di immediata reperibilità, creare
+    una cartella ("images" o "img", "multimedia" oppure "video", "audio", etc.) per ciascuna tipologia di oggetto, all'interno della cartella "assets" (generata automaticamente da angular-cli) e, 
+    nel proprio codice, utilizzare un path del tipo "assets/images/nomeimmagine.png". Nell'esempio qui riportato, è stata creata una cartella "img" all'interno
+    della cartella "assets" (quindi il path di riferimento diventa "assets/img", senza alcuno slash davanti) e dentro tale cartella img sono state poste le
+    immagini alle quali si fa riferimento nel codice (name: 'Angular', url: '<span class="red">assets/img/</span>MiniA.png').<br>
+    *** Attenzione Attenzione *** In Angular 5 i riferimenti ai nomi degli oggetti sono CASE-SENSITIVE! Quindi un se una nostra immagine ha come nome di file
+    "<span class="red">a</span>ngularLogo.png" ("a" minuscola) e nei nostri riferimenti utilizziamo qualcosa del tipo 
+    url: '<span class="red">assets/img/A</span>ngularLogo.png' (quindi con la "A" maiuscola piuttosto che minuscola), nessuna immagine verrà mostrata!
+
+  </p>
 <h4>Results in</h4>
 <table class="table table-striped table-bordered">
   <thead>
@@ -157,8 +169,26 @@ app.component.html<br>
     </thead>
     <tbody>
       <tr *ngFor="let framework of frameworks">
-        <td align="center" width="20%"><img [src]="getImgUrl(framework)" alt="cover image"/></td>
+        <td align="center" width="20%"><img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50"/></td>
         <td><span [ngClass]="getClasses(framework)">{{framework}}</span></td>
       </tr>
     </tbody>
 </table>
+
+<h3>Binding</h3>
+<pre ngNonBindable>
+app.component.ts<br>
+public message: string;
+showMessage(msg) &#123;
+  this.message = msg.target.value;
+&#125;
+app.component.html<br>
+&lt;input type="text" [value]="message" (keypress)="$event" [(ngModel)]="message"/&gt;
+&lt;span class="small"&gt;&nbsp;&gt;&gt;&gt;&nbsp;{{message}}&lt;/span&gt;
+</pre>
+<p>
+  Digitare qualcosa all'interno del campo di input...
+</p>
+<h4>Results in</h4>
+<input type="text" [value]="message" (keypress)="$event" [(ngModel)]="message"/>
+<span class="small">&nbsp;&gt;&gt;&gt;&nbsp;{{message}}</span>
