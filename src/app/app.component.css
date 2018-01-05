@@ -4,7 +4,7 @@ div, p, li {
     font-size:14pt;
 }
 
-li {
+li, span {
     color: steelblue;
     font-family: tahoma;
     font-size:9pt;
@@ -24,7 +24,7 @@ img {
     vertical-align: middle;
 }
 
-.red { color: red; text-decoration: none; }
-.orange { color: orange; text-decoration: none; }
-.royal { color: royalblue; text-decoration: none; }
-.bolder { font-weight: bold; }
+.red { color: red; }
+.orange { color: orange; }
+.royal { color: royalblue;  }
+.bolder { font-weight: bold; text-decoration: underline;}
