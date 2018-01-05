@@ -1,5 +1,9 @@
-body {
+div {
     color: steelblue;
     font-family: tahoma;
-    font-size:10pt;
+    font-size:16pt;
+}
+
+img {
+    vertical-align: middle;
 }
