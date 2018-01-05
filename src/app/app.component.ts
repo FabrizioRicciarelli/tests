@@ -15,8 +15,8 @@ export class AppComponent {
   public selectedcar = 'Ferrari';
   public imgs = [
     { name: 'Angular', url: 'assets/img/MiniA.png' },
-    { name: 'React', url: 'assets/MiniMaps.png' },
-    { name: 'Ember', url: 'assets/MiniN.png' }
+    { name: 'React', url: 'assets/img/MiniMaps.png' },
+    { name: 'Ember', url: 'assets/img/MiniN.png' }
   ];
   // todo
   model = new Model();
@@ -35,7 +35,7 @@ export class AppComponent {
     const styles = { 'color': framework === 'Angular' ? 'red' : 'green', 'text-decoration': framework === 'Angular' ? 'underline' : 'none'};
     return styles;
   }
-  geClasses(framework) {
+  getClasses(framework) {
     const classes = { red: framework === 'Angular', bolder: framework === 'Angular' };
     return classes;
   }

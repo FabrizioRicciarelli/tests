@@ -37,7 +37,7 @@ app.component.ts<br>
 public frameworks: string[] = ['Angular', 'React', 'Ember'];<br><br>
 app.component.html<br>
 &lt;ul&gt;
-  &lt;li *ngFor="let framework of frameworks"&gt;
+  &lt;li <span class="red">*ngFor</span>="let framework of frameworks"&gt;
     {{framework}}
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -58,11 +58,11 @@ app.component.html<br>
 app.component.ts<br>
 public selectedcar = 'Ferrari';<br><br>
 app.component.html<br>
-&lt;div [ngSwitch]="selectedcar"&gt;
-  &lt;span *ngSwitchCase="'Bugatti'"&gt;I am Bugatti&lt;/span&gt;
-  &lt;span *ngSwitchCase="'Mustang'"&gt;I am Mustang&lt;/span&gt;
-  &lt;span *ngSwitchCase="'Ferrari'"&gt;I am Ferrari&lt;/span&gt;
-  &lt;span *ngSwitchDefault&gt;I am somebody else ({{selectedcar}})&lt;/span&gt;
+&lt;div <span class="red">[ngSwitch]</span>="selectedcar"&gt;
+  &lt;span <span class="red">*ngSwitchCase</span>="'Bugatti'"&gt;I am Bugatti&lt;/span&gt;
+  &lt;span <span class="red">*ngSwitchCase</span>="'Mustang'"&gt;I am Mustang&lt;/span&gt;
+  &lt;span <span class="red">*ngSwitchCase</span>="'Ferrari'"&gt;I am Ferrari&lt;/span&gt;
+  &lt;span <span class="red">*ngSwitchDefault</span>&gt;I am somebody else ({{selectedcar}})&lt;/span&gt;
 &lt;/div&gt;
 </pre>  
 <p>
@@ -88,7 +88,7 @@ getInlineStyles(framework) &#123;
 app.component.html<br>
 &lt;ul&gt;
     &lt;li *ngFor="let framework of frameworks"&gt;
-      &lt;span [ngStyle]="getInlineStyles(framework)"&gt;{{framework}}&lt;/span&gt;
+      &lt;span <span class="red">[ngStyle]</span>="getInlineStyles(framework)"&gt;{{framework}}&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </pre>
@@ -109,14 +109,14 @@ geClasses(framework) &#123;
 app.component.html<br>
 &lt;ul&gt;
   &lt;li *ngFor="let framework of frameworks"&gt;
-    &lt;span [ngClass]="geClasses(framework)"&gt;{{framework}}&lt;/span&gt;
+    &lt;span <span class="red">[ngClass]</span>="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;  
 </pre>
 <h4>Results in</h4>
 <ul>
   <li *ngFor="let framework of frameworks">
-    <span [ngClass]="geClasses(framework)">{{framework}}</span>
+    <span [ngClass]="getClasses(framework)">{{framework}}</span>
   </li>
 </ul>
 
@@ -130,17 +130,35 @@ public imgs = [
   ];
 getImgUrl(framework) &#123;
   return this.imgs.filter(f => f.name === framework)[0].url;
-&#125;
+&#125;<br>
 app.component.html<br>
-&lt;ul&gt;
-  &lt;li *ngFor="let framework of frameworks"&gt;
-    &lt;span [src]="getImgUrl(framework)"&gt;{{framework}}&lt;/span&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;  
+&lt;table class="table table-striped table-bordered"&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Logo&lt;/th&gt;
+        &lt;th&gt;Framework&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr *ngFor="let framework of frameworks"&gt;
+        &lt;td align="center" width="20%"&gt;&lt;img <span class="red">[src]</span>="getImgUrl(framework)" alt="cover image"/&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span [ngClass]="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
 </pre>
 <h4>Results in</h4>
-<ul>
-  <li *ngFor="let framework of frameworks">
-      <img [src]="getImgUrl(framework)" alt="cover image"/>
-  </li>
-</ul>
+<table class="table table-striped table-bordered">
+  <thead>
+      <tr>
+        <th>Logo</th>
+        <th>Framework</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let framework of frameworks">
+        <td align="center" width="20%"><img [src]="getImgUrl(framework)" alt="cover image"/></td>
+        <td><span [ngClass]="getClasses(framework)">{{framework}}</span></td>
+      </tr>
+    </tbody>
+</table>
