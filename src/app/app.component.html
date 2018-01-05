@@ -31,4 +31,45 @@
   </tbody>
 </table>
 
+<h3>*ngFor (solo asterisco davanti, nessuna parentesi quadra)</h3>
+<pre ngNonBindable>
+&lt;ul&gt;
+  &lt;li *ngFor="let framework of frameworks"&gt;
+    {{framework}}
+  &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+<h4>Results in</h4>
+<ul>
+  <li *ngFor="let framework of frameworks">
+    {{framework}}
+  </li>
+</ul>
 
+  
+
+<h3>[ngSwitch] (senza asterisco davanti, racchiuso tra parentesi quadre)</h3>
+<h3>*ngSwitchCase (solo asterisco davanti, nessuna parentesi quadra)</h3>
+<h3>*ngSwitchDefault (solo asterisco davanti, nessuna parentesi quadra)</h3>
+<pre>
+&lt;div [ngSwitch]="selectedcar"&gt;
+    &lt;p *ngSwitchCase="'Bugatti'"&gt;I am Bugatti&lt;/p&gt;
+    &lt;p *ngSwitchCase="'Mustang'"&gt;I am Mustang&lt;/p&gt;
+    &lt;p *ngSwitchCase="'Ferrari'"&gt;I am Ferrari&lt;/p&gt;
+    &lt;p *ngSwitchDefault&gt;I am somebody else ({{selectedcar}})&lt;/p&gt;
+  &lt;/div&gt;
+</pre>  
+<p>
+  Attenzione!!! Se si opera un confronto sulle stringhe, il comparatore *ngSwitchCase si aspetta come valore di confronto 
+  una stringa racchiusa prima tra doppi apici e quindi tra apici singoli, in questo modo: 
+  *ngSwitchCase=<b class="royal">"</b><b class="red">'</b>Ferrari<b class="red">'</b><b class="royal">"</b>
+</p>
+<h4>Results in</h4>
+<div [ngSwitch]="selectedcar">
+  <p *ngSwitchCase="'Bugatti'">I am Bugatti</p>
+  <p *ngSwitchCase="'Mustang'">I am Mustang</p>
+  <p *ngSwitchCase="'Ferrari'">I am Ferrari</p>
+  <p *ngSwitchDefault>I am somebody else ({{selectedcar}})</p>
+</div>
+
+  

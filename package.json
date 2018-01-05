@@ -26,7 +26,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "4.7.0",
     "rxjs": "^5.5.2",
-    "systemjs": "^0.19.40",
+    "systemjs": "^0.19.47",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
   },
