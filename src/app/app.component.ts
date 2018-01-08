@@ -19,13 +19,19 @@ export class AppComponent implements OnInit {
   public model: ToDoModel;
   public booksList: Book[] = BOOKS;
   public imgs: Img[] = IMGS;
-
+  selectedBook: Book;
+  bookTitle = 'Elenco Libri';
+  
   @ViewChild('todoText') el: ElementRef;
   public selectedcar = 'Ferrari';
   public message: string;
   public messageAlert: string;
-  public colSpanValue = 3;
   
+  public colSpanValue = 3;
+  public imgWidth = 50;
+  public imgHeight = 50;
+  public altText = 'Logo image';
+
   constructor() {
     this.title = 'tests';
     this.model = new ToDoModel();
@@ -78,5 +84,9 @@ export class AppComponent implements OnInit {
   showAlert(event) { 
     alert(event.key); 
   }
+  getBookDetails (isbn: number) {
+    const selectedBook = this.booksList.filter(book => book.isbn === isbn);
+    this.selectedBook = selectedBook[0];
+  }  
 }
 

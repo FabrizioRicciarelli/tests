@@ -7,7 +7,8 @@
 
 <h3 class="bg-primary p-a-1">{{getName()}}'s To Do List</h3>
 <div class="m-t-1 m-b-1">
-  <input type="text" #todoText /><button class="btn btn-primary m-t-1" (click)="addItem(todoText.value)">Add</button>
+  <input type="text" #todoText />
+  <button class="btn btn-primary m-t-1" (click)="addItem(todoText.value)">Add</button>
 </div>
 <table class="table table-striped table-bordered">
   <thead>
@@ -21,7 +22,9 @@
     <tr *ngFor="let item of getTodoItems(); let i = index">
       <td>{{i + 1}}</td>
       <td>{{item.action}}</td>
-      <td><input type="checkbox" [(ngModel)]="item.done" /></td>
+      <td>
+        <input type="checkbox" [(ngModel)]="item.done" />
+      </td>
       <td [ngSwitch]="item.done">
         <span *ngSwitchCase="true">Yes</span>
         <span *ngSwitchDefault>No</span>
@@ -49,9 +52,9 @@ app.component.html<br>
 </ul>
 
 <h3>
-[ngSwitch] (senza asterisco davanti, racchiuso tra parentesi quadre)<br>
-*ngSwitchCase (solo asterisco davanti, nessuna parentesi quadra)<br>
-*ngSwitchDefault (solo asterisco davanti, nessuna parentesi quadra)
+  [ngSwitch] (senza asterisco davanti, racchiuso tra parentesi quadre)
+  <br> *ngSwitchCase (solo asterisco davanti, nessuna parentesi quadra)
+  <br> *ngSwitchDefault (solo asterisco davanti, nessuna parentesi quadra)
 </h3>
 <pre ngNonBindable>
 app.component.ts<br>
@@ -63,11 +66,14 @@ app.component.html<br>
   &lt;span <span class="red">*ngSwitchCase</span>="'Ferrari'"&gt;I am Ferrari&lt;/span&gt;
   &lt;span <span class="red">*ngSwitchDefault</span>&gt;I am somebody else ({{selectedcar}})&lt;/span&gt;
 &lt;/div&gt;
-</pre>  
+</pre>
 <p>
-  Attenzione!!! Se si opera un confronto sulle stringhe, il comparatore *ngSwitchCase si aspetta come valore di confronto 
-  una stringa racchiusa prima tra doppi apici e quindi tra apici singoli, in questo modo: 
-  *ngSwitchCase=<b class="royal">"</b><b class="red">'</b>Ferrari<b class="red">'</b><b class="royal">"</b>
+  Attenzione!!! Se si opera un confronto sulle stringhe, il comparatore *ngSwitchCase si aspetta come valore di confronto una
+  stringa racchiusa prima tra doppi apici e quindi tra apici singoli, in questo modo: *ngSwitchCase=
+  <b class="royal">"</b>
+  <b class="red">'</b>Ferrari
+  <b class="red">'</b>
+  <b class="royal">"</b>
 </p>
 <h4>Results in</h4>
 <div [ngSwitch]="selectedcar" class="small">
@@ -148,31 +154,39 @@ app.component.html<br>
 &lt;/table&gt;
 </pre>
 <p>
-    Attenzione!!! I percorsi relativi non esistono più in Angular 5, al loro posto è stato introdotto un complesso sistema di routing. Per evitare
-    di allestire tale complesso sistema, un metodo veloce per raggruppare immagini, media, ed altri elementi di immediata reperibilità, creare
-    una cartella ("images" o "img", "multimedia" oppure "video", "audio", etc.) per ciascuna tipologia di oggetto, all'interno della cartella "assets" (generata automaticamente da angular-cli) e, 
-    nel proprio codice, utilizzare un path del tipo "assets/images/nomeimmagine.png". Nell'esempio qui riportato, è stata creata una cartella "img" all'interno
-    della cartella "assets" (quindi il path di riferimento diventa "assets/img", senza alcuno slash davanti) e dentro tale cartella img sono state poste le
-    immagini alle quali si fa riferimento nel codice (name: 'Angular', url: '<span class="red">assets/img/</span>MiniA.png').<br>
-    *** Attenzione Attenzione *** In Angular 5 i riferimenti ai nomi degli oggetti sono CASE-SENSITIVE! Quindi un se una nostra immagine ha come nome di file
-    "<span class="red">a</span>ngularLogo.png" ("a" minuscola) e nei nostri riferimenti utilizziamo qualcosa del tipo 
-    url: '<span class="red">assets/img/A</span>ngularLogo.png' (quindi con la "A" maiuscola piuttosto che minuscola), nessuna immagine verrà mostrata!
+  Attenzione!!! I percorsi relativi non esistono più in Angular 5, al loro posto è stato introdotto un complesso sistema di
+  routing. Per evitare di allestire tale complesso sistema, un metodo veloce per raggruppare immagini, media, ed altri elementi
+  di immediata reperibilità, creare una cartella ("images" o "img", "multimedia" oppure "video", "audio", etc.) per ciascuna
+  tipologia di oggetto, all'interno della cartella "assets" (generata automaticamente da angular-cli) e, nel proprio codice,
+  utilizzare un path del tipo "assets/images/nomeimmagine.png". Nell'esempio qui riportato, è stata creata una cartella "img"
+  all'interno della cartella "assets" (quindi il path di riferimento diventa "assets/img", senza alcuno slash davanti) e
+  dentro tale cartella img sono state poste le immagini alle quali si fa riferimento nel codice (name: 'Angular', url: '
+  <span
+    class="red">assets/img/</span>MiniA.png').
+    <br> *** Attenzione Attenzione *** In Angular 5 i riferimenti ai nomi degli oggetti sono CASE-SENSITIVE! Quindi un se una
+    nostra immagine ha come nome di file "
+    <span class="red">a</span>ngularLogo.png" ("a" minuscola) e nei nostri riferimenti utilizziamo qualcosa del tipo url: '
+    <span class="red">assets/img/A</span>ngularLogo.png' (quindi con la "A" maiuscola piuttosto che minuscola), nessuna immagine verrà mostrata!
 
-  </p>
+</p>
 <h4>Results in</h4>
 <table class="table table-striped table-bordered">
   <thead>
-      <tr>
-        <th>Logo</th>
-        <th>Framework</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let framework of frameworks">
-        <td align="center" width="20%"><img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50"/></td>
-        <td><span [ngClass]="getClasses(framework)">{{framework}}</span></td>
-      </tr>
-    </tbody>
+    <tr>
+      <th>Logo</th>
+      <th>Framework</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let framework of frameworks">
+      <td align="center" width="20%">
+        <img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50" />
+      </td>
+      <td>
+        <span [ngClass]="getClasses(framework)">{{framework}}</span>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <h3>Binding</h3>
@@ -196,17 +210,20 @@ app.component.html<br>
 &lt;span class="small">&nbsp;&gt;&gt;&gt;&nbsp;{{<span class="orange">message</span>}}&lt;/span&gt;
 </pre>
 <p>
-  Digitare qualcosa all'interno dei campi di input... (provare anche a premere Enter) 
+  Digitare qualcosa all'interno dei campi di input... (provare anche a premere Enter)
 </p>
 <h4>Results in</h4>
-<input type="text" [value]="message" (keypress)="showMessage($event)" [(ngModel)]="message"/>
-<input type="text" [value]="messageAlert" (keypress)="showAlert($event)"/>
+<input type="text" [value]="message" (keypress)="showMessage($event)" [(ngModel)]="message" />
+<input type="text" [value]="messageAlert" (keypress)="showAlert($event)" />
 <span class="small">&nbsp;&gt;&gt;&gt;&nbsp;{{message}}</span>
 
 <h3>Attribute binding</h3>
 <pre ngNonBindable>
   app.component.ts<br>
-  <span class="red">public colSpanValue = 3;</span><br>
+  public <span class="red">colSpanValue = 3;</span><br>
+  public <span class="red">imgWidth = 50;</span><br>
+  public <span class="red">imgHeight = 50;</span><br>
+  public <span class="red">altText = 'Logo image';</span><br>
   public frameworks: string[] = ['Angular', 'React', 'Ember'];<br>
   app.component.html<br>    
   &lt;table class="table table-striped table-bordered"&gt;
@@ -217,7 +234,9 @@ app.component.html<br>
     &lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr *ngFor="let framework of frameworks; let i = index"&gt;
-        &lt;td align="center" width="20%"&gt;&lt;img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50"/&gt;&lt;/td&gt;
+        &lt;td align="center" width="20%"&gt;
+          &lt;img [src]="getImgUrl(framework)" <span class="red">[attr.alt]</span>="altText" <span class="red">[attr.width]</span>="imgWidth" <span class="red">[attr.height]</span>="imgHeight"/&gt;
+        &lt;/td&gt;
         &lt;td&gt;&lt;span [ngClass]="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;&lt;/td&gt;
         &lt;td&gt;{{ i + 1 }}&lt;/td&gt;
       &lt;/tr&gt;
@@ -226,18 +245,27 @@ app.component.html<br>
 </pre>
 <h4>Results in</h4>
 <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th [attr.colspan]="colSpanValue">Queste {{colSpanValue}} colonne saranno unite</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let framework of frameworks; let i = index">
-        <td align="center" width="20%"><img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50"/></td>
-        <td><span [ngClass]="getClasses(framework)">{{framework}}</span></td>
-        <td>{{ i + 1 }}</td>
-      </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th [attr.colspan]="colSpanValue">
+        Queste {{colSpanValue}} colonne saranno unite (imgWidth =
+        <input type="text" [value]="imgWidth" [(ngModel)]="imgWidth"
+        />, imgWidth =
+        <input type="text" [value]="imgHeight" [(ngModel)]="imgHeight" />)
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let framework of frameworks; let i = index">
+      <td align="center" width="20%">
+        <img [src]="getImgUrl(framework)" [attr.alt]="altText" [attr.width]="imgWidth" [attr.height]="imgHeight" />
+      </td>
+      <td>
+        <span [ngClass]="getClasses(framework)">{{framework}}</span>
+      </td>
+      <td>{{ i + 1 }}</td>
+    </tr>
+  </tbody>
 </table>
 <h3>String interpolation</h3>
 <pre ngNonBindable>
@@ -264,5 +292,54 @@ app.component.html<br>
 <div #mydiv [ngClass]="'p-a-1 ' + getProductClasses(null)" [textContent]="'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')"></div>
 <div class="form-group m-t-1">
   <label>Input title via Interpolazione stringa:</label>
-  <input class="form-control" #myTextBox [placeholder]="BookTitle" [value] = "(getBook(9781784396527)?.title || 'None')" />
+  <input class="form-control" #myTextBox [placeholder]="BookTitle" [value]="(getBook(9781784396527)?.title || 'None')" />
+</div>
+
+<h3>Books list</h3>
+<h6 class="title">Books List</h6>
+<div class="border-divider"></div>
+<div class="row">
+  <!-- lato sinistro -->
+  <div class="col-md-6">
+    <ul class="list">
+      <div class="list-item row" *ngFor="let book of booksList">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="cover-image-container">
+              <span class="cover-image">
+                <img [src]="book.coverImage" alt="cover image" />
+              </span>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="clear">
+              <p class="book-title">{{book.title}}</p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <h5 class="book-author">{{book.authors}}</h5>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary" #det (click)="getBookDetails(book.isbn)">View</button>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <!-- lato destro con il dettaglio del libro -->
+  <div class="col-md-6">
+    <div class="col-xs-12">
+      <div *ngIf="selectedBook" class="row selected-book">
+        <div class="col-xs-4">
+          <img [src]="selectedBook.coverImage" alt="cover image" />
+        </div>
+        <div class="col-xs-8">
+          <h5 class="title">{{selectedBook.title}}</h5>
+          <p class="small">{{selectedBook.authors}}</p>
+          <p class="small">{{selectedBook.published}}</p>
+          <p class="small">{{selectedBook.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
