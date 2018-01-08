@@ -27,4 +27,6 @@ img {
 .red { color: red; font-weight:bolder; }
 .orange { color: orange; }
 .royal { color: royalblue;  }
-.bolder { font-weight: bold; text-decoration: underline;}
+.bolder { font-weight: bold; text-decoration: underline; }
+.bg-warning { background-color : red; color: white; }
+.bg-success { background-color : forestgreen; color: white; }

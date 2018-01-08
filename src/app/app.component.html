@@ -7,8 +7,7 @@
 
 <h3 class="bg-primary p-a-1">{{getName()}}'s To Do List</h3>
 <div class="m-t-1 m-b-1">
-  <input class="form-control" #todoText />
-  <button class="btn btn-primary m-t-1" (click)="addItem(todoText.value)">Add</button>
+  <input type="text" #todoText /><button class="btn btn-primary m-t-1" (click)="addItem(todoText.value)">Add</button>
 </div>
 <table class="table table-striped table-bordered">
   <thead>
@@ -232,20 +231,28 @@ app.component.html<br>
 </table>
 <h3>String interpolation</h3>
 <pre ngNonBindable>
+  app.component.css<br>
+  .bg-warning &#123; background-color : red; color: white; &#125;
+  .bg-success &#123; background-color : forestgreen; color: white; &#125;<br>
   app.component.ts<br>
-  getBook (isbn: number) &#123;
-    var selectedBook = this.booksList.filter(book => book.isbn === isbn);
-    return selectedBook[0];
-    &#125;<br>
+  getProductClasses(availability: number | null): string &#123;
+    return (availability === null || this.booksList.length >= availability) ? 'bg-success' : 'bg-warning';
+  &#125;<br>
+  getBook(isbn: number) &#123;
+    const consoleMsg = `First book: <span class="red">$&#123;this.booksList[0].title&#125;</span>`; // Concatenazione stringhe col simbolo $
+    console.info(consoleMsg);
+    return this.booksList.filter(b => b.isbn === isbn)[0];
+  &#125;<br>
   app.component.html<br>   
-  &lt;div #mydiv [ngClass]="'p-a-1 ' + getClasses()" [textContent]="'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')"&gt;&lt;/div&gt;
+  &lt;div&#9;#mydiv<br>&#9;[ngClass]="<span class="red">'p-a-1 ' + getProductClasses(null)</span>" &lt;-- Concatenazione stringhe tramite simbolo "+" --&gt;<br>&#9;[textContent]="<span class="red">'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')</span>"&gt;&lt;/div&gt;
   &lt;div class="form-group m-t-1"&gt;
     &lt;label&gt;Input title via Interpolazione stringa:&lt;/label&gt;
-    &lt;input class="form-control" #myTextBox [placeholder]="getBook(9781784396527)?.title || 'None'" [value]="" /&gt;
+    &lt;input class="form-control" #myTextBox [placeholder]="BookTitle" [value] = "<span class="red">(getBook(9781784396527)?.title || 'None')</span>" /&gt;
   &lt;/div&gt;
 </pre>
-<div #mydiv [ngClass]="'p-a-1' + getClasses()" [textContent]="'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')"></div>
+<h4>Results in</h4>
+<div #mydiv [ngClass]="'p-a-1 ' + getProductClasses(null)" [textContent]="'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')"></div>
 <div class="form-group m-t-1">
   <label>Input title via Interpolazione stringa:</label>
-  <input class="form-control" #myTextBox [placeholder]="BookTitle" [value] = "getBook(9781784396527)?.title || 'None'" />
+  <input class="form-control" #myTextBox [placeholder]="BookTitle" [value] = "(getBook(9781784396527)?.title || 'None')" />
 </div>
