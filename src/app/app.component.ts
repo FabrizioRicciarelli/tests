@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 // todo
-import { ToDoModel, TodoItem, Book, Img } from './models/models';
+import { ToDoModel, TodoItem, Book, Img } from './models/model-base';
 import { BOOKS, IMGS, FWKS } from './models/model-data';
 import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';

@@ -1,4 +1,4 @@
-import { Book, Img } from './models';
+import { Book, Img } from './model-base';
 export const BOOKS: Book[] = [
     {
         isbn: 9781786462084,
