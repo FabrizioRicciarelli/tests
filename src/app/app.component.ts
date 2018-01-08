@@ -25,11 +25,13 @@ export class AppComponent implements OnInit {
   @ViewChild('todoText') el: ElementRef;
   public selectedcar = 'Ferrari';
   public message: string;
+  public messageAlert: string;
   public colSpanValue = 3;
   
   constructor() {
     this.title = 'tests';
     this.model = new Model();
+    this.messageAlert = '';
   }
 
   ngOnInit(): void {
@@ -59,9 +61,7 @@ export class AppComponent implements OnInit {
   getImgUrl(framework) {
     return this.imgs.filter(f => f.name === framework)[0].url;
   }
-  showMessage(msg) {
-    this.message = msg.target.value;
-  }
+
   getProductClasses(availability: number | null): string {
     return (availability === null || this.booksList.length >= availability) ? 'bg-success' : 'bg-warning';
   }
@@ -70,5 +70,15 @@ export class AppComponent implements OnInit {
     console.info(consoleMsg);
     return this.booksList.filter(b => b.isbn === isbn)[0];
   }  
+  showMessage(event) {
+    if (event.key === 'Enter') {
+      const contents = event.target.value;
+      alert((contents.length === 0) ? 'Non hai digitato nulla ed hai premuto Enter' : event.target.value + '[Enter]');
+    }
+    this.message = event.target.value;
+  }
+  showAlert(event) { 
+    alert(event.key); 
+  }
 }
 

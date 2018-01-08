@@ -178,19 +178,29 @@ app.component.html<br>
 <h3>Binding</h3>
 <pre ngNonBindable>
 app.component.ts<br>
-public message: string;
-showMessage(msg) &#123;
-  this.message = msg.target.value;
+public <span class="orange">message</span>: string;
+public <span class="orange">messageAlert</span>: string;<br>
+showMessage(<span class="red">event</span>) &#123;
+  if (event.key === 'Enter') &#123;
+    const contents = <span class="red">event.target.value</span>;
+    alert((contents.length === 0) ? 'Non hai digitato nulla ed hai premuto Enter' : <span class="red">event.target.value</span> + '[Enter]');
+  &#125;
+  this.<span class="orange">message</span> = <span class="red">event.target.value</span>;
+&#125;
+showAlert(<span class="red">event</span>) &#123; 
+  alert(<span class="red">event.key</span>); 
 &#125;
 app.component.html<br>
-&lt;input type="text" [value]="message" (keypress)="$event" [(ngModel)]="message"/&gt;
-&lt;span class="small"&gt;&nbsp;&gt;&gt;&gt;&nbsp;{{message}}&lt;/span&gt;
+&lt;input type="text" [value]="<span class="orange">message</span>" (keypress)="showMessage(<span class="red">$event</span>)" <span class="aqua">[(ngModel)]</span>="<span class="orange">message</span>"/&gt;
+&lt;input type="text" [value]="<span class="orange">messageAlert</span>" (keypress)="showAlert(<span class="red">$event</span>)"/&gt;
+&lt;span class="small">&nbsp;&gt;&gt;&gt;&nbsp;{{<span class="orange">message</span>}}&lt;/span&gt;
 </pre>
 <p>
-  Digitare qualcosa all'interno del campo di input...
+  Digitare qualcosa all'interno dei campi di input... (provare anche a premere Enter) 
 </p>
 <h4>Results in</h4>
-<input type="text" [value]="message" (keypress)="$event" [(ngModel)]="message"/>
+<input type="text" [value]="message" (keypress)="showMessage($event)" [(ngModel)]="message"/>
+<input type="text" [value]="messageAlert" (keypress)="showAlert($event)"/>
 <span class="small">&nbsp;&gt;&gt;&gt;&nbsp;{{message}}</span>
 
 <h3>Attribute binding</h3>
