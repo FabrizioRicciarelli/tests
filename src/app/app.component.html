@@ -81,6 +81,7 @@ app.component.html<br>
 <h3>[ngStyle] (senza asterisco davanti, racchiuso tra parentesi quadre)</h3>
 <pre ngNonBindable>
 app.component.ts<br>
+public frameworks: string[] = ['Angular', 'React', 'Ember'];<br>
 getInlineStyles(framework) &#123;
   const styles = &#123; 'color': framework === 'Angular' ? 'red' : 'green', 'text-decoration': framework === 'Angular' ? 'underline' : 'none'&#125;;
   return styles;
@@ -192,3 +193,59 @@ app.component.html<br>
 <h4>Results in</h4>
 <input type="text" [value]="message" (keypress)="$event" [(ngModel)]="message"/>
 <span class="small">&nbsp;&gt;&gt;&gt;&nbsp;{{message}}</span>
+
+<h3>Attribute binding</h3>
+<pre ngNonBindable>
+  app.component.ts<br>
+  <span class="red">public colSpanValue = 3;</span><br>
+  public frameworks: string[] = ['Angular', 'React', 'Ember'];<br>
+  app.component.html<br>    
+  &lt;table class="table table-striped table-bordered"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th <span class="red">[attr.colspan]="colSpanValue"</span>&gt;Queste 3 colonne saranno unite&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr *ngFor="let framework of frameworks; let i = index"&gt;
+        &lt;td align="center" width="20%"&gt;&lt;img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50"/&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span [ngClass]="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;&lt;/td&gt;
+        &lt;td&gt;{{ i + 1 }}&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+</pre>
+<h4>Results in</h4>
+<table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th [attr.colspan]="colSpanValue">Queste 3 colonne saranno unite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let framework of frameworks; let i = index">
+        <td align="center" width="20%"><img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50"/></td>
+        <td><span [ngClass]="getClasses(framework)">{{framework}}</span></td>
+        <td>{{ i + 1 }}</td>
+      </tr>
+    </tbody>
+</table>
+<h3>String interpolation</h3>
+<pre ngNonBindable>
+  app.component.ts<br>
+  getBook (isbn: number) &#123;
+    var selectedBook = this.booksList.filter(book => book.isbn === isbn);
+    return selectedBook[0];
+    &#125;<br>
+  app.component.html<br>   
+  &lt;div #mydiv [ngClass]="'p-a-1 ' + getClasses()" [textContent]="'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')"&gt;&lt;/div&gt;
+  &lt;div class="form-group m-t-1"&gt;
+    &lt;label&gt;Input title via Interpolazione stringa:&lt;/label&gt;
+    &lt;input class="form-control" #myTextBox [placeholder]="getBook(9781784396527)?.title || 'None'" [value]="" /&gt;
+  &lt;/div&gt;
+</pre>
+<div #mydiv [ngClass]="'p-a-1' + getClasses()" [textContent]="'Titolo del libro: ' + (getBook(9781784396527)?.title || 'None')"></div>
+<div class="form-group m-t-1">
+  <label>Input title via Interpolazione stringa:</label>
+  <input class="form-control" #myTextBox [placeholder]="BookTitle" [value] = "getBook(9781784396527)?.title || 'None'" />
+</div>
