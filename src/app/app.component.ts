@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 // todo
-import { Model, TodoItem } from './models/model';
-import { Book } from './models/book';
-import { BOOKS } from './models/mock-book';
+import { ToDoModel, TodoItem, Book, Img } from './models/models';
+import { BOOKS, IMGS, FWKS } from './models/model-data';
 import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';
 
@@ -13,15 +12,14 @@ import { FormControl } from '@angular/forms/src/model';
   styleUrls: ['bootstrap.css', './app.component.css']
 })
 export class AppComponent implements OnInit {
-  public title: string;  
-  public frameworks: string[] = ['Angular', 'React', 'Ember'];
-  public imgs = [
-    { name: 'Angular', url: 'assets/img/angularLogo.png' },
-    { name: 'React', url: 'assets/img/reactLogo.png' },
-    { name: 'Ember', url: 'assets/img/emberLogo.jpg' }
-  ];
-  public model: Model;
+  public title: string; 
+  
+  // external arrays, classes, array of classes (from model-data)
+  public frameworks: string[] = FWKS;
+  public model: ToDoModel;
   public booksList: Book[] = BOOKS;
+  public imgs: Img[] = IMGS;
+
   @ViewChild('todoText') el: ElementRef;
   public selectedcar = 'Ferrari';
   public message: string;
@@ -30,7 +28,7 @@ export class AppComponent implements OnInit {
   
   constructor() {
     this.title = 'tests';
-    this.model = new Model();
+    this.model = new ToDoModel();
     this.messageAlert = '';
   }
 

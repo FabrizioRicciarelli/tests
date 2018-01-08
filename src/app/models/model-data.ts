@@ -1,4 +1,4 @@
-import { Book } from './book';
+import { Book, Img } from './models';
 export const BOOKS: Book[] = [
     {
         isbn: 9781786462084,
@@ -24,4 +24,14 @@ export const BOOKS: Book[] = [
         description: 'Over 120 practical and easy-to-understand recipes that explain how to use Sass and Compass to write efficient, maintainable, and reusable CSS code for your web development projects',
         coverImage: 'https://d1ldz4te4covpm.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/I6935.jpg'
     }
+];
+export const IMGS: Img[] = [
+    { name: 'Angular', url: 'assets/img/angularLogo.png' },
+    { name: 'React', url: 'assets/img/reactLogo.png' },
+    { name: 'Ember', url: 'assets/img/emberLogo.jpg' }
+];
+export const FWKS: string[] = [
+    'Angular', 
+    'React', 
+    'Ember'
 ];

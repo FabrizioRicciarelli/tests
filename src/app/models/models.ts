@@ -1,8 +1,20 @@
-export class Model {
+export class Book {
+    isbn: number | null;
+    title: string;
+    authors: string;
+    published: string;
+    description: string;
+    coverImage: string;
+}
+export class Img {
+    name: string;
+    url: string;
+}
+export class ToDoModel {
     user;
     items;
     constructor() {
-        this.user = 'Adam';
+        this.user = 'Angular';
         this.items = [
             new TodoItem('Buy Flowers', false),
             new TodoItem('Get Shoes', false),
