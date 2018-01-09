@@ -6,6 +6,12 @@ export class Book {
     description: string;
     coverImage: string;
 }
+export class Framework {
+    name: string;
+    releaseYear: number;
+    logoUrl: string;
+    description: string;
+}
 export class Img {
     name: string;
     url: string;

@@ -7,7 +7,7 @@ import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';
 
 // User-defined
-import { ToDoModel, TodoItem, Book, Img } from './models/model-base';
+import { ToDoModel, TodoItem, Book, Framework, Img } from './models/model-base';
 import { BOOKS, IMGS, FWKS } from './models/model-data';
 
 
@@ -25,8 +25,8 @@ export class AppComponent implements OnInit {
   // ---------------------
   // external arrays, array of classes (from model-data)
   public booksList: Book[] = BOOKS;
-  public imgs: Img[] = IMGS;
-  public frameworks: string[] = FWKS;
+  // public imgs: Img[] = IMGS;
+  public frameworks: Framework[] = FWKS;
 
   // external classes (from model-base)
   selectedBook: Book;
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
   }
 
   getImgUrl(framework) {
-    return this.imgs.filter(f => f.name === framework)[0].url;
+    return this.frameworks.filter(f => f.name === framework)[0].logoUrl;
   }
 
   getProductClasses(availability: number | null): string {

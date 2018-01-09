@@ -40,14 +40,14 @@ public frameworks: string[] = ['Angular', 'React', 'Ember'];<br><br>
 app.component.html<br>
 &lt;ul&gt;
   &lt;li <span class="red">*ngFor</span>="let framework of frameworks"&gt;
-    {{framework}}
+    {{framework.name}}
   &lt;/li&gt;
 &lt;/ul&gt;
 </pre>
 <h4>Results in</h4>
 <ul>
   <li *ngFor="let framework of frameworks">
-    {{framework}}
+    {{framework.name}}
   </li>
 </ul>
 <hr />
@@ -94,14 +94,14 @@ getInlineStyles(framework) &#123;
 app.component.html<br>
 &lt;ul&gt;
     &lt;li *ngFor="let framework of frameworks"&gt;
-      &lt;span <span class="red">[ngStyle]</span>="getInlineStyles(framework)"&gt;{{framework}}&lt;/span&gt;
+      &lt;span <span class="red">[ngStyle]</span>="getInlineStyles(framework.name)"&gt;{{framework.name}}&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </pre>
 <h4>Results in</h4>
 <ul>
   <li *ngFor="let framework of frameworks">
-    <span [ngStyle]="getInlineStyles(framework)">{{framework}}</span>
+    <span [ngStyle]="getInlineStyles(framework.name)">{{framework.name}}</span>
   </li>
 </ul>
 <hr />
@@ -115,14 +115,14 @@ geClasses(framework) &#123;
 app.component.html<br>
 &lt;ul&gt;
   &lt;li *ngFor="let framework of frameworks"&gt;
-    &lt;span <span class="red">[ngClass]</span>="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;
+    &lt;span <span class="red">[ngClass]</span>="getClasses(framework.name)"&gt;{{framework.name}}&lt;/span&gt;
   &lt;/li&gt;
 &lt;/ul&gt;  
 </pre>
 <h4>Results in</h4>
 <ul>
   <li *ngFor="let framework of frameworks">
-    <span [ngClass]="getClasses(framework)">{{framework}}</span>
+    <span [ngClass]="getClasses(framework.name)">{{framework.name}}</span>
   </li>
 </ul>
 <hr />
@@ -147,8 +147,8 @@ app.component.html<br>
     &lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr *ngFor="let framework of frameworks"&gt;
-        &lt;td align="center" width="20%"&gt;&lt;img <span class="red">[src]</span>="getImgUrl(framework)" alt="logo image" width="50" height="50"/&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;span [ngClass]="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;&lt;/td&gt;
+        &lt;td align="center" width="20%"&gt;&lt;img <span class="red">[src]</span>="getImgUrl(framework.name)" alt="logo image" width="50" height="50"/&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span [ngClass]="getClasses(framework.name)"&gt;{{framework.name}}&lt;/span&gt;&lt;/td&gt;
       &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;
@@ -180,10 +180,10 @@ app.component.html<br>
   <tbody>
     <tr *ngFor="let framework of frameworks">
       <td align="center" width="20%">
-        <img [src]="getImgUrl(framework)" alt="logo image" width="50" height="50" />
+        <img [src]="getImgUrl(framework.name)" alt="logo image" width="50" height="50" />
       </td>
       <td>
-        <span [ngClass]="getClasses(framework)">{{framework}}</span>
+        <span [ngClass]="getClasses(framework.name)">{{framework.name}}</span>
       </td>
     </tr>
   </tbody>
@@ -235,9 +235,9 @@ app.component.html<br>
     &lt;tbody&gt;
       &lt;tr *ngFor="let framework of frameworks; let i = index"&gt;
         &lt;td align="center" width="20%"&gt;
-          &lt;img [src]="getImgUrl(framework)" <span class="red">[attr.alt]</span>="altText" <span class="red">[attr.width]</span>="imgWidth" <span class="red">[attr.height]</span>="imgHeight"/&gt;
+          &lt;img [src]="getImgUrl(framework.name)" <span class="red">[attr.alt]</span>="altText" <span class="red">[attr.width]</span>="imgWidth" <span class="red">[attr.height]</span>="imgHeight"/&gt;
         &lt;/td&gt;
-        &lt;td&gt;&lt;span [ngClass]="getClasses(framework)"&gt;{{framework}}&lt;/span&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span [ngClass]="getClasses(framework.name)"&gt;{{framework.name}}&lt;/span&gt;&lt;/td&gt;
         &lt;td&gt;{{ i + 1 }}&lt;/td&gt;
       &lt;/tr&gt;
     &lt;/tbody&gt;
@@ -258,10 +258,10 @@ app.component.html<br>
   <tbody>
     <tr *ngFor="let framework of frameworks; let i = index">
       <td align="center" width="20%">
-        <img [src]="getImgUrl(framework)" [attr.alt]="altText" [attr.width]="imgWidth" [attr.height]="imgHeight" />
+        <img [src]="getImgUrl(framework.name)" [attr.alt]="altText" [attr.width]="imgWidth" [attr.height]="imgHeight" />
       </td>
       <td>
-        <span [ngClass]="getClasses(framework)">{{framework}}</span>
+        <span [ngClass]="getClasses(framework.name)">{{framework.name}}</span>
       </td>
       <td>{{ i + 1 }}</td>
     </tr>
