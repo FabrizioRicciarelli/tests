@@ -21,16 +21,4 @@ export class TodoItem {
 export class ToDoModel {
     user;
     items;
-/*  
-    // An alternative way on how fill the object
-    constructor() {
-        this.user = 'Angular';
-        this.items = [
-            new TodoItem('Buy Flowers', false),
-            new TodoItem('Get Shoes', false),
-            new TodoItem('Collect Tickets', false),
-            new TodoItem('Call Joe', false)
-        ];
-    }
- */
 }
