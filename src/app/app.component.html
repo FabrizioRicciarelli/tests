@@ -35,9 +35,9 @@
 <hr />
 <h3>Environment setup</h3>
 <p>
-  Gli esempi che seguiranno presuppongono la redazione di alcuni modelli suddivisi in due files distinti: 
-  model-base.ts e model-data.ts, contenenti rispettivamente le classi e gli array di classi contenenti le strutture e i dati
-  che verranno mostrati negli esempi.
+  Gli esempi che seguiranno presuppongono la redazione di alcuni modelli suddivisi in due files distinti: model-base.ts e model-data.ts,
+  contenenti rispettivamente le classi e gli array di classi contenenti le strutture e i dati che verranno mostrati negli
+  esempi.
 </p>
 <p>
   Ecco cosa contengono i due modelli:
@@ -244,16 +244,16 @@ app.component.html<br>
   utilizzare un path del tipo "assets/images/nomeimmagine.png". Nell'esempio qui riportato, è stata creata una cartella "img"
   all'interno della cartella "assets" (quindi il path di riferimento diventa "assets/img", senza alcuno slash davanti) e
   dentro tale cartella img sono state poste le immagini alle quali si fa riferimento nel codice (name: 'Angular', url: '
-  <span
-    class="red">assets/img/</span>MiniA.png').
-    <br> *** Attenzione Attenzione *** In Angular 5 i riferimenti ai nomi degli oggetti sono CASE-SENSITIVE! Quindi un se una
-    nostra immagine ha come nome di file "
-    <span class="red">a</span>ngularLogo.png" ("a" minuscola) e nei nostri riferimenti utilizziamo qualcosa del tipo url: '
-    <span class="red">assets/img/A</span>ngularLogo.png' (quindi con la "A" maiuscola piuttosto che minuscola), nessuna immagine verrà mostrata!
+  <span class="red">assets/img/</span>MiniA.png').
+  <br> *** Attenzione Attenzione *** In Angular 5 i riferimenti ai nomi degli oggetti sono CASE-SENSITIVE! Quindi un se una nostra
+  immagine ha come nome di file "
+  <span class="red">a</span>ngularLogo.png" ("a" minuscola) e nei nostri riferimenti utilizziamo qualcosa del tipo url: '
+  <span class="red">assets/img/A</span>ngularLogo.png' (quindi con la "A" maiuscola piuttosto che minuscola), nessuna immagine verrà mostrata!
 
 </p>
 <h4>Results in</h4>
-<table class="table table-striped table-bordered"> <!-- Gli allineamenti orizzontali dei TH e quelli verticali dei TD richiedono un override su ciascun elemento -->
+<table class="table table-striped table-bordered">
+  <!-- Gli allineamenti orizzontali dei TH e quelli verticali dei TD richiedono un override su ciascun elemento -->
   <thead>
     <tr>
       <th class="cen">Logo</th>
@@ -337,17 +337,17 @@ app.component.html<br>
     &lt;/tbody&gt;
   &lt;/table&gt;
 </pre>
-<p>Gli allineamenti orizzontali dei TH e quelli verticali dei TD richiedono un override su ciascun elemento (notare l'applicazione delle classi "cen" sui TH e "mid cen" sui TD)
-  qualora si utilizzino classi bootstrap a livello di tabella (come nell'esempio riportato di seguito, le cui classi sono "table table-striped table-bordered") </p>
+<p>Gli allineamenti orizzontali dei TH e quelli verticali dei TD richiedono un override su ciascun elemento (notare l'applicazione
+  delle classi "cen" sui TH e "mid cen" sui TD) qualora si utilizzino classi bootstrap a livello di tabella (come nell'esempio
+  riportato di seguito, le cui classi sono "table table-striped table-bordered") </p>
 <h4>Results in</h4>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
       <th [attr.colspan]="colSpanValue" class="small">
-        Queste {{colSpanValue}} colonne saranno unite (
-          imgWidth = <input type="text" [value]="imgWidth" [(ngModel)]="imgWidth" class="input30"/>, 
-          imgWidth = <input type="text" [value]="imgHeight" [(ngModel)]="imgHeight" class="input30"/>
-        )
+        Queste {{colSpanValue}} colonne saranno unite ( imgWidth =
+        <input type="text" [value]="imgWidth" [(ngModel)]="imgWidth" class="input30" />, imgWidth =
+        <input type="text" [value]="imgHeight" [(ngModel)]="imgHeight" class="input30" /> )
       </th>
     </tr>
     <tr>
@@ -400,7 +400,6 @@ app.component.html<br>
 </div>
 <hr />
 <h3>Books list</h3>
-<div class="border-divider"></div>
 <div class="row">
   <!-- lato sinistro -->
   <div class="col-md-5">
@@ -412,7 +411,8 @@ app.component.html<br>
               <span class="cover-image">
                 <img [src]="book.coverImage" alt="cover image" width="70" height="100" />
               </span>
-              <br/><br>
+              <br/>
+              <br>
             </div>
           </div>
           <div class="col-md-3">
@@ -444,6 +444,45 @@ app.component.html<br>
           <p class="small jus">{{selectedBook.description}}</p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<hr />
+<h3>Books list con book-details component</h3>
+<div class="row">
+  <!-- lato sinistro -->
+  <div class="col-md-5">
+    <ul class="list">
+      <div class="list-item row" *ngFor="let book of booksList">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="cover-image-container">
+              <span class="cover-image">
+                <img [src]="book.coverImage" alt="cover image" width="70" height="100" />
+              </span>
+              <br/>
+              <br>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="clear">
+              <p class="book-title">{{book.title}}</p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <h5 class="book-author">{{book.authors}}</h5>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary" #det (click)="getIncapsuledBookDetails(book.isbn)">Details</button>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <!-- lato destro, con il dettaglio del libro -->
+  <div class="col-md-6">
+    <div class="col-xs-8">
+      <book-details [book]="selectedIncapsuledBook" (onDelete)="deleteBook($event)"> </book-details>
     </div>
   </div>
 </div>

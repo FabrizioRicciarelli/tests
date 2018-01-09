@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms/src/model';
 // User-defined
 import { ToDoModel, TodoItem, Book, Framework, Img } from './models/model-base';
 import { BOOKS, IMGS, FWKS } from './models/model-data';
+import { BookStoreService } from './services/book-store.service';
 
 
 // =====================
@@ -17,7 +18,8 @@ import { BOOKS, IMGS, FWKS } from './models/model-data';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['bootstrap.css', './app.component.css']
+  styleUrls: ['bootstrap.css', './app.component.css'],
+  providers: [BookStoreService]
 })
 export class AppComponent implements OnInit {
   // ---------------------
@@ -30,14 +32,15 @@ export class AppComponent implements OnInit {
 
   // external classes (from model-base)
   selectedBook: Book;
+  selectedIncapsuledBook: Book;
   public todoModel: ToDoModel;
   bookTitle = 'Elenco Libri';
-  
+
   // ngModel/updatable elements
   public selectedcar = 'Ferrari';
   public message: string;
   public messageAlert: string;
-  
+
   // Attribute properties
   public colSpanValue = 4;
   public imgWidth = 50;
@@ -45,7 +48,7 @@ export class AppComponent implements OnInit {
   public altText = 'Logo image';
 
   // Various elements
-  public title: string; 
+  public title: string;
 
   // Form elements
   @ViewChild('todoText') el: ElementRef;
@@ -54,13 +57,16 @@ export class AppComponent implements OnInit {
   // -------------------
   // ****  METHODS  ****
   // -------------------
-  constructor() {
+  constructor(
+    private bookStoreService: BookStoreService
+  ) {
     this.title = 'tests';
     this.messageAlert = '';
     this.fillToDoModel();
   }
 
   ngOnInit(): void {
+    this.getBooksList();
   }
 
   fillToDoModel() {
@@ -90,7 +96,7 @@ export class AppComponent implements OnInit {
   }
 
   getInlineStyles(framework) {
-    const styles = { 'color': framework === 'Angular' ? 'red' : 'green', 'text-decoration': framework === 'Angular' ? 'underline' : 'none'};
+    const styles = { 'color': framework === 'Angular' ? 'red' : 'green', 'text-decoration': framework === 'Angular' ? 'underline' : 'none' };
     return styles;
   }
 
@@ -107,16 +113,6 @@ export class AppComponent implements OnInit {
     return (availability === null || this.booksList.length >= availability) ? 'bg-success' : 'bg-warning';
   }
 
-  getBook(isbn: number) {
-    const consoleMsg = `First book: ${this.booksList[0].title}`;
-    console.info(consoleMsg);
-    return this.booksList.filter(b => b.isbn === isbn)[0];
-  }
-
-  getBookDetails (isbn: number) {
-    this.selectedBook = this.booksList.filter(book => book.isbn === isbn)[0];
-  }  
-
   showMessage(event) {
     if (event.key === 'Enter') {
       const contents = event.target.value;
@@ -125,8 +121,44 @@ export class AppComponent implements OnInit {
     this.message = event.target.value;
   }
 
-  showAlert(event) { 
-    alert(event.key); 
+  showAlert(event) {
+    alert(event.key);
+  }
+  
+  // FROM service
+  getBooksList() {
+    this.booksList = this.bookStoreService.getBooks();
+  }
+  getServiceBookDetails(isbn: number) {
+    this.selectedBook = this.bookStoreService.getBook(isbn);
+  }
+  deleteServiceBook(isbn: number) {
+    this.selectedBook = null;
+    this.booksList = this.bookStoreService.deleteBook(isbn);
+  }
+
+  // FROM local model-data
+  getBook(isbn: number) {
+    // const consoleMsg = `First book: ${this.booksList[0].title}`;
+    // console.info(consoleMsg);
+    return this.booksList.filter(b => b.isbn === isbn)[0];
+  }
+
+  getBookDetails(isbn: number) {
+    this.selectedBook = this.booksList.filter(book => book.isbn === isbn)[0];
+  }
+
+  getIncapsuledBookDetails(isbn: number) {
+    this.selectedIncapsuledBook = this.booksList.filter(book => book.isbn === isbn)[0];
+  }
+
+  deleteBook(isbn: number) {
+    this.booksList = this.booksList.filter(book => book.isbn !== isbn);
+    if (isbn === this.selectedBook.isbn) {
+      this.selectedBook = null;
+    }
+    this.selectedIncapsuledBook = null;
+    return this.booksList;
   }
 }
 

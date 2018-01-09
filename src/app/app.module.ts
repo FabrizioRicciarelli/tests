@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { BookDetailsComponent } from './components/book-details/book-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BookDetailsComponent
   ],
   imports: [
     BrowserModule,
