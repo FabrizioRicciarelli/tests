@@ -28,10 +28,14 @@ export const BOOKS: Book[] = [
 export const IMGS: Img[] = [
     { name: 'Angular', url: 'assets/img/angularLogo.png' },
     { name: 'React', url: 'assets/img/reactLogo.png' },
-    { name: 'Ember', url: 'assets/img/emberLogo.jpg' }
+    { name: 'Ember', url: 'assets/img/emberLogo.jpg' },
+    { name: 'Vue', url: 'assets/img/vueLogo.jpg' },
+    { name: 'Ember', url: 'assets/img/meteorLogo.jpg' },
 ];
 export const FWKS: string[] = [
     'Angular', 
     'React', 
-    'Ember'
+    'Ember',
+    'Vue',
+    'Meteor'
 ];
