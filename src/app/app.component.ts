@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   public messageAlert: string;
   
   // Attribute properties
-  public colSpanValue = 3;
+  public colSpanValue = 4;
   public imgWidth = 50;
   public imgHeight = 50;
   public altText = 'Logo image';

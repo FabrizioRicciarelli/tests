@@ -13,7 +13,7 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th></th>
+      <th>Index</th>
       <th>Description</th>
       <th>Done</th>
     </tr>
@@ -33,10 +33,94 @@
   </tbody>
 </table>
 <hr />
+<h3>Environment setup</h3>
+<p>
+  Gli esempi che seguiranno presuppongono la redazione di alcuni modelli suddivisi in due files distinti: 
+  model-base.ts e model-data.ts, contenenti rispettivamente le classi e gli array di classi contenenti le strutture e i dati
+  che verranno mostrati negli esempi.
+</p>
+<p>
+  Ecco cosa contengono i due modelli:
+</p>
+<pre ngNonBindable>
+  <b>model-base.ts</b><br/>
+  export class Book &#123;
+    isbn: number | null;
+    title: string;
+    authors: string;
+    published: string;
+    description: string;
+    coverImage: string;
+  &#125;
+  export class Framework &#123;
+      name: string;
+      releaseYear: number;
+      logoUrl: string;
+      description: string;
+  &#125;
+  export class Img &#123;
+      name: string;
+      url: string;
+  &#125;
+  export class TodoItem &#123;
+      action;
+      done;
+      constructor(action, done) &#123;
+          this.action = action;
+          this.done = done;
+      &#125;
+  &#125;
+  export class ToDoModel &#123;
+      user;
+      items;
+  &#125;
+
+  <b>model-data.ts</b><br>
+  import &#123; Book, Img, Framework &#125; from './model-base';
+  export const BOOKS: Book[] = [
+      &#123;
+          isbn: 9781786462084,
+          title: 'Laravel 5.x Cookbook',
+          authors: 'Alfred Nutile',
+          published: 'September 2016',
+          description: 'A recipe-based book to help you efficiently create amazing PHP-based applications with Laravel 5.x',
+          coverImage: 'https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/B05517_MockupCover_Cookbook_0.jpg'
+      &#125;,
+      &#123;
+          isbn: 9781784396527,
+          title: 'Sitecore Cookbook for Developers',
+          authors: 'Yogesh Patel',
+          published: 'April 2016',
+          description: 'Over 70 incredibly effective and practical recipes to get you up and running with Sitecore development',
+          coverImage: 'https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/6527cov_.jpg'
+      &#125;,
+      &#123;
+          isbn: 9781783286935,
+          title: 'Sass and Compass Designers Cookbook',
+          authors: 'Bass Jobsen',
+          published: 'April 2016',
+          description: 'Over 120 practical and easy-to-understand recipes that explain how to use Sass and Compass to write efficient, maintainable, and reusable CSS code for your web development projects',
+          coverImage: 'https://d1ldz4te4covpm.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/I6935.jpg'
+      &#125;
+  ];
+  export const IMGS: Img[] = [
+      &#123; name: 'Angular', url: 'assets/img/angularLogo.png' &#125;,
+      &#123; name: 'React', url: 'assets/img/reactLogo.png' &#125;,
+      &#123; name: 'Ember', url: 'assets/img/emberLogo.png' &#125;,
+      &#123; name: 'Vue', url: 'assets/img/vueLogo.png' &#125;,
+      &#123; name: 'Meteor', url: 'assets/img/meteorLogo.png' &#125;
+  ];
+  export const FWKS: Framework[] = [
+      &#123; name: 'Angular', releaseYear: 2016, logoUrl: 'assets/img/angularLogo.png', description: 'After a long-awaited release of Angular back in 2016, its popularity has touched new heights, though AngularJS will hold off on giving ground in 2017. Angular.js is often referred to as an MVW (Model-View-Whatever) framework and among the top benefits, for startups and mid-sized companies, people name: quick code production, easy testing of any app part and two-way data binding (changes in the backend are immediately reflected on the UI). Since release its ecosystem has gone beyond imagination. As for now, it is reasonably called the most used JS framework for SPAs (Single-Page Applications) development and it boasts the largest community of developers. Angular2 comes with a long list of features that enable building everything, ranging from web to desktop and mobile. Framework is built with TypeScript from Microsoft with an eye to making JavaScript more agile and attractive for large enterprises. ng2 features a component-based architecture, improved DI (dependency injection), efficient logging service, inter-component communications and more. Both Angular-s are a better option for enterprise-based applications or for strict programming environments with high standards for code readability.' &#125;,  
+      &#123; name: 'React', releaseYear: 2017, logoUrl: 'assets/img/reactLogo.png', description: 'It is more of a library than a JS framework. It stands behind user interfaces of Facebook and Instagram, showing its efficiency within dynamic high-traffic applications. It is rightly considered the fastest growing JS framework: as of today, there are about 1,000 contributors on Github. In MVC (Model-View-Controller) pattern React.js acts as “V” and can be smoothly integrated with any architecture. Due to the usage of virtual DOM it provides a great performance boost, comparing to Angular 1.x. In addition to that, React components can be created and re-used among applications or even transferred for public use. Despite the fact that React has a higher learning curve, it makes app development straightforward and easy-to-understand. Furthermore it can be a perfect fit for complex, high-load and awesome software solutions.' &#125;,
+      &#123; name: 'Ember', releaseYear: 2014, logoUrl: 'assets/img/emberLogo.png', description: 'Back in 2015 Ember was called the best javascript framework for web application, leaving behind React and AngularJS. Today it boasts a huge online community, regular updates and wide appliance of JavaScript best practices to guarantee ultimate experience right out of the box. Ember features two-way data binding, like Angular.js, keeping both view and model in sync for all the time. Applying Fastboot.js module it ensures prompt server-side rendering of DOM, improving performance of complex UIs. Emberjs is commonly usable for complex feature-rich web applications and website. Among the top users are Chipotle, Blue Apron, Nordstrom, Kickstarter, LinkedIn, Netflix and many others. Moreover it has an easier learning curve and there are oceans of tutorials and guide available online.' &#125;,
+      &#123; name: 'Vue', releaseYear: 2017, logoUrl: 'assets/img/vueLogo.png', description: 'Vue 2.0 was also introduced in 2016 and it took the best from Ember, React and Angular, putting all that into a handy package. It is proved to be faster and leaner, comparing to React and Angular 2.0. Going deeper, Vue.js offers two-way data binding (seen in AngularJS), server-side rendering (like in Angular2 and ReactJS), Vue-cli (scaffolding tool for quick start) and optional JSX support. Its founder states that Vue 2 is one of the fastest frameworks all in all. Vue.js is a better choice for quick development of cross-platform solutions. It can become a firm basis for high-end single page applications (SPAs) and beneficial solution to those cases, when performance is put ahead of good code organization or app structure.' &#125;,
+      &#123; name: 'Meteor', releaseYear: 2012, logoUrl: 'assets/img/meteorLogo.png', description: 'Meteor is among the most popular JavaScript frameworks but which comes well-heeled with tons of features for back-end development, front-end rendering, database management and business logic. Since release in 2012 its ecosystem has grown drastically and at a swift rate. This full-stack platform enables fast development of end-to-end web and mobile applications in pure JavaScript. Due to modular structure all the packages and libraries can be used at pace. In terms of performance, all the changes in the database are immediately transmitted to the UI and in conversely with no evident time losses caused by different languages or server response time. MeteorJS covers all the phases of software development cycle and takes care of such glooming processes as linking, files concatenation and others. It is of current usage in real-time application development for business companies like Mazda, IKEA, Honeywell and many others.' &#125;,
+  ];
+</pre>
+<hr />
 <h3>*ngFor (solo asterisco davanti, nessuna parentesi quadra)</h3>
 <pre ngNonBindable> <!-- l'attributo ngNonBindable consente di utilizzare, all'interno del contenitore <pre> le doppie parentesi graffe senza interpretarle -->
-app.component.ts<br>
-public frameworks: string[] = ['Angular', 'React', 'Ember'];<br><br>
 app.component.html<br>
 &lt;ul&gt;
   &lt;li <span class="red">*ngFor</span>="let framework of frameworks"&gt;
@@ -86,7 +170,6 @@ app.component.html<br>
 <h3>[ngStyle] (senza asterisco davanti, racchiuso tra parentesi quadre)</h3>
 <pre ngNonBindable>
 app.component.ts<br>
-public frameworks: string[] = ['Angular', 'React', 'Ember'];<br>
 getInlineStyles(framework) &#123;
   const styles = &#123; 'color': framework === 'Angular' ? 'red' : 'green', 'text-decoration': framework === 'Angular' ? 'underline' : 'none'&#125;;
   return styles;
@@ -170,19 +253,19 @@ app.component.html<br>
 
 </p>
 <h4>Results in</h4>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered"> <!-- Gli allineamenti orizzontali dei TH e quelli verticali dei TD richiedono un override su ciascun elemento -->
   <thead>
     <tr>
-      <th>Logo</th>
+      <th class="cen">Logo</th>
       <th>Framework</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let framework of frameworks">
-      <td align="center" width="20%">
+      <td class="cen mid" width="20%">
         <img [src]="getImgUrl(framework.name)" alt="logo image" width="50" height="50" />
       </td>
-      <td>
+      <td class="mid">
         <span [ngClass]="getClasses(framework.name)">{{framework.name}}</span>
       </td>
     </tr>
@@ -224,46 +307,66 @@ app.component.html<br>
   public <span class="red">imgWidth = 50;</span><br>
   public <span class="red">imgHeight = 50;</span><br>
   public <span class="red">altText = 'Logo image';</span><br>
-  public frameworks: string[] = ['Angular', 'React', 'Ember'];<br>
   app.component.html<br>    
   &lt;table class="table table-striped table-bordered"&gt;
     &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th <span class="red">[attr.colspan]="colSpanValue"</span> class="small"&gt;
+          Queste {{colSpanValue}} colonne saranno unite (
+            imgWidth = &lt;input type="text" [value]="imgWidth" [(ngModel)]="imgWidth" class="input30"/&gt;, 
+            imgWidth = &lt;input type="text" [value]="imgHeight" [(ngModel)]="imgHeight" class="input30"/&gt;
+          )
+        &lt;/th&gt;
+      &lt;/tr&gt;
       &lt;tr&gt;
-        &lt;th <span class="red">[attr.colspan]="colSpanValue"</span>&gt;Queste {{colSpanValue}} colonne saranno unite&lt;/th&gt;
+        &lt;th class="cen"&gt;Index&lt;/th&gt;
+        &lt;th class="cen"&gt;Logo&lt;/th&gt;
+        &lt;th class="cen"&gt;Name&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
       &lt;/tr&gt;
     &lt;/thead&gt;
     &lt;tbody&gt;
       &lt;tr *ngFor="let framework of frameworks; let i = index"&gt;
-        &lt;td align="center" width="20%"&gt;
+        &lt;td class="mid cen"&gt;{{ i + 1 }}&lt;/td&gt;
+        &lt;td class="mid cen" width="20%"&gt;
           &lt;img [src]="getImgUrl(framework.name)" <span class="red">[attr.alt]</span>="altText" <span class="red">[attr.width]</span>="imgWidth" <span class="red">[attr.height]</span>="imgHeight"/&gt;
         &lt;/td&gt;
-        &lt;td&gt;&lt;span [ngClass]="getClasses(framework.name)"&gt;{{framework.name}}&lt;/span&gt;&lt;/td&gt;
-        &lt;td&gt;{{ i + 1 }}&lt;/td&gt;
-      &lt;/tr&gt;
+        &lt;td class="mid cen"&gt;&lt;span [ngClass]="getClasses(framework.name)"&gt;{{framework.name}}&lt;/span&gt;&lt;/td&gt;
+        &lt;td class="small jus"&gt;{{ framework.description }}&lt;/td&gt;
+        &lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
 </pre>
+<p>Gli allineamenti orizzontali dei TH e quelli verticali dei TD richiedono un override su ciascun elemento (notare l'applicazione delle classi "cen" sui TH e "mid cen" sui TD)
+  qualora si utilizzino classi bootstrap a livello di tabella (come nell'esempio riportato di seguito, le cui classi sono "table table-striped table-bordered") </p>
 <h4>Results in</h4>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th [attr.colspan]="colSpanValue">
-        Queste {{colSpanValue}} colonne saranno unite (imgWidth =
-        <input type="text" [value]="imgWidth" [(ngModel)]="imgWidth"
-        />, imgWidth =
-        <input type="text" [value]="imgHeight" [(ngModel)]="imgHeight" />)
+      <th [attr.colspan]="colSpanValue" class="small">
+        Queste {{colSpanValue}} colonne saranno unite (
+          imgWidth = <input type="text" [value]="imgWidth" [(ngModel)]="imgWidth" class="input30"/>, 
+          imgWidth = <input type="text" [value]="imgHeight" [(ngModel)]="imgHeight" class="input30"/>
+        )
       </th>
+    </tr>
+    <tr>
+      <th class="cen">Index</th>
+      <th class="cen">Logo</th>
+      <th class="cen">Name</th>
+      <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let framework of frameworks; let i = index">
-      <td align="center" width="20%">
+      <td class="mid cen">{{ i + 1 }}</td>
+      <td class="mid cen" width="20%">
         <img [src]="getImgUrl(framework.name)" [attr.alt]="altText" [attr.width]="imgWidth" [attr.height]="imgHeight" />
       </td>
-      <td>
-        <span [ngClass]="getClasses(framework.name)">{{framework.name}}</span>
+      <td class="mid cen">
+        <span [ngClass]="getClasses(framework.name)">{{ framework.name }}</span>
       </td>
-      <td>{{ i + 1 }}</td>
+      <td class="small jus">{{ framework.description }}</td>
     </tr>
   </tbody>
 </table>
