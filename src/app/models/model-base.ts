@@ -10,9 +10,19 @@ export class Img {
     name: string;
     url: string;
 }
+export class TodoItem {
+    action;
+    done;
+    constructor(action, done) {
+        this.action = action;
+        this.done = done;
+    }
+}
 export class ToDoModel {
     user;
     items;
+/*  
+    // An alternative way on how fill the object
     constructor() {
         this.user = 'Angular';
         this.items = [
@@ -22,12 +32,5 @@ export class ToDoModel {
             new TodoItem('Call Joe', false)
         ];
     }
-}
-export class TodoItem {
-    action;
-    done;
-    constructor(action, done) {
-        this.action = action;
-        this.done = done;
-    }
+ */
 }

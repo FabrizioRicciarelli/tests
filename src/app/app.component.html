@@ -296,22 +296,22 @@ app.component.html<br>
 </div>
 
 <h3>Books list</h3>
-<h6 class="title">Books List</h6>
 <div class="border-divider"></div>
 <div class="row">
   <!-- lato sinistro -->
-  <div class="col-md-6">
+  <div class="col-md-5">
     <ul class="list">
       <div class="list-item row" *ngFor="let book of booksList">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-2">
             <div class="cover-image-container">
               <span class="cover-image">
-                <img [src]="book.coverImage" alt="cover image" />
+                <img [src]="book.coverImage" alt="cover image" width="70" height="100" />
               </span>
+              <br/><br>
             </div>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-3">
             <div class="clear">
               <p class="book-title">{{book.title}}</p>
             </div>
@@ -320,7 +320,7 @@ app.component.html<br>
             <h5 class="book-author">{{book.authors}}</h5>
           </div>
           <div class="col-md-1">
-            <button class="btn btn-primary" #det (click)="getBookDetails(book.isbn)">View</button>
+            <button class="btn btn-primary" #det (click)="getBookDetails(book.isbn)">Details</button>
           </div>
         </div>
       </div>
@@ -328,16 +328,16 @@ app.component.html<br>
   </div>
   <!-- lato destro con il dettaglio del libro -->
   <div class="col-md-6">
-    <div class="col-xs-12">
+    <div class="col-xs-8">
       <div *ngIf="selectedBook" class="row selected-book">
-        <div class="col-xs-4">
-          <img [src]="selectedBook.coverImage" alt="cover image" />
+        <div class="col-xs-8">
+          <img [src]="selectedBook.coverImage" alt="cover image" width="200" height="300" />
         </div>
         <div class="col-xs-8">
           <h5 class="title">{{selectedBook.title}}</h5>
-          <p class="small">{{selectedBook.authors}}</p>
-          <p class="small">{{selectedBook.published}}</p>
-          <p class="small">{{selectedBook.description}}</p>
+          <p class="small jus">{{selectedBook.authors}}</p>
+          <p class="small jus">{{selectedBook.published}}</p>
+          <p class="small jus">{{selectedBook.description}}</p>
         </div>
       </div>
     </div>
