@@ -10,6 +10,9 @@ import { FormControl } from '@angular/forms/src/model';
 import { ToDoModel, TodoItem, Book, Framework, Img } from './models/model-base';
 import { BOOKS, IMGS, FWKS } from './models/model-data';
 import { BookStoreService } from './services/book-store.service';
+import { TodoService } from './services/todo.service';
+import { FrameworkService } from './services/framework.service';
+import { ApiService } from './services/api.service';
 
 
 // =====================
@@ -19,7 +22,7 @@ import { BookStoreService } from './services/book-store.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['bootstrap.css', './app.component.css'],
-  providers: [BookStoreService]
+  providers: [BookStoreService, TodoService, FrameworkService]
 })
 export class AppComponent implements OnInit {
   // ---------------------
@@ -28,13 +31,15 @@ export class AppComponent implements OnInit {
   // external arrays, array of classes (from model-data)
   public booksList: Book[] = BOOKS;
   // public imgs: Img[] = IMGS;
-  public frameworks: Framework[] = FWKS;
+  public frameworks: Framework[]; // = FWKS;
 
   // external classes (from model-base)
   selectedBook: Book;
   selectedIncapsuledBook: Book;
-  public todoModel: ToDoModel;
+  todoModel: ToDoModel;
   bookTitle = 'Elenco Libri';
+
+  // API services
 
   // ngModel/updatable elements
   public selectedcar = 'Ferrari';
@@ -58,26 +63,52 @@ export class AppComponent implements OnInit {
   // ****  METHODS  ****
   // -------------------
   constructor(
-    private bookStoreService: BookStoreService
+    private bookStoreService: BookStoreService,
+    private todoService: TodoService,
+    private frameworkService: FrameworkService
   ) {
     this.title = 'tests';
     this.messageAlert = '';
-    this.fillToDoModel();
+    this.fillModelArraysFromAPIServices();
   }
 
   ngOnInit(): void {
     this.getBooksList();
   }
 
-  fillToDoModel() {
+  fillModelArraysFromAPIServices() {
     this.todoModel = new ToDoModel();
-    this.todoModel.user = 'Angular';
-    this.todoModel.items = [
-      new TodoItem('Buy Flowers', false),
-      new TodoItem('Get Shoes', false),
-      new TodoItem('Collect Tickets', false),
-      new TodoItem('Call Joe', false)
-    ];
+    this.todoModel.items = this.todoService.getAllTodos().subscribe(items => this.todoModel.items = items);
+    // Analogo alla riga precedente, ma per un maggior controllo sulla singola riga/colonna di dati
+    // const subscription = this.todoService.getAllTodos().subscribe(
+    //   items => {
+    //     if (items != null && items !== undefined) {
+    //       items.forEach(obj => {
+    //         this.todoModel.items.push({ id: obj.id, title: obj.title, complete: obj.complete });
+    //       });
+    //     }
+    //   });
+
+    // Per il momento è l'unica via che conosco per valorizzare l'oggetto frameworks
+    this.frameworks = new Array<Framework>();
+    const subscription = this.frameworkService.getAllFrameworks().subscribe(
+      frameworks => {
+        if (frameworks != null && frameworks !== undefined) {
+          frameworks.forEach(obj => {
+            this.frameworks.push({ name: obj.name, releaseYear: obj.releaseYear, logoUrl: obj.logoUrl, description: obj.description });
+          });
+        }
+      });
+
+    // Inizializzazione con dati mockup locali
+    // this.todoModel = new ToDoModel();
+    // this.todoModel.user = 'Angular';
+    // this.todoModel.items = [
+    //   new TodoItem('Buy Flowers', false),
+    //   new TodoItem('Get Shoes', false),
+    //   new TodoItem('Collect Tickets', false),
+    //   new TodoItem('Call Joe', false)
+    // ];
   }
 
   getName() {
@@ -85,12 +116,14 @@ export class AppComponent implements OnInit {
   }
 
   getTodoItems() {
-    return this.todoModel.items.filter(item => !item.done);
+    if (this.todoModel != null && this.todoModel.items != null && this.todoModel.items.length > 0) {
+      return this.todoModel.items.filter(item => !item.complete);
+    }
   }
 
   addItem(newItem) {
     if (newItem !== '') {
-      this.todoModel.items.push(new TodoItem(newItem, false));
+      this.todoModel.items.push(new TodoItem(newItem.id, newItem.description, false));
       this.el.nativeElement.value = '';
     }
   }
@@ -124,7 +157,7 @@ export class AppComponent implements OnInit {
   showAlert(event) {
     alert(event.key);
   }
-  
+
   // FROM service
   getBooksList() {
     this.booksList = this.bookStoreService.getBooks();

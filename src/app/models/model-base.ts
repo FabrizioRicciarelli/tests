@@ -11,6 +11,12 @@ export class Framework {
     releaseYear: number;
     logoUrl: string;
     description: string;
+    constructor(name, releaseYear, logoUrl, description) {
+        this.name = name;
+        this.releaseYear = releaseYear;
+        this.logoUrl = logoUrl;
+        this.description = description;
+    }
 }
 export class Img {
     name: string;
@@ -18,11 +24,12 @@ export class Img {
 }
 export class TodoItem {
     id;
-    action;
-    done;
-    constructor(action, done) {
-        this.action = action;
-        this.done = done;
+    title;
+    complete;
+    constructor(id, title, complete) {
+        this.id = id;
+        this.title = title;
+        this.complete = complete;
     }
 }
 export class ToDoModel {
@@ -31,12 +38,12 @@ export class ToDoModel {
     lastId = 0;
     constructor() {
         this.user = 'Angular';
-        this.items = [
-            new TodoItem('Buy Flowers', false),
-            new TodoItem('Get Shoes', false),
-            new TodoItem('Collect Tickets', false),
-            new TodoItem('Call Joe', false)
-        ];
+        this.items = [];
+        //     new TodoItem('Buy Flowers', false),
+        //     new TodoItem('Get Shoes', false),
+        //     new TodoItem('Collect Tickets', false),
+        //     new TodoItem('Call Joe', false)
+        // ];
     }
     // Simulate POST /todos
     addTodo(todo: TodoItem): ToDoModel {

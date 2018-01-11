@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Manually creating an Observable</title>
+</head>
+
+<body>
+    <script type="text/babel">
+        const observable = Rx.Observable.create((observer) => {
+            observer.next(1);
+            observer.next(2);
+            setTimeout(() => {
+                observer.next(3);
+                observer.next(4);
+                observer.complete();
+            }, 1000);
+            observer.next(5);
+        });
+        console.log('Before subscribe');
+        observable.subscribe({
+            next: val => console.log(`Got value ${val}`),
+            error: err => console.log(`Something went wrong ${err}`),
+            complete: () => console.log('I am done') 
+        });
+        console.log('After subscribe');
+
+        const mouseMoves = Rx.Observable.fromEvent(document, 'mousemove');
+        const msubscription = mouseMoves.subscribe(event => console.log(event.clientX, event.clientY));        
+
+
+        const interval = Rx.Observable.interval(1000);
+        const subscription = interval.subscribe(val => console.log(val));
+        // setTimeout(() => { subscription.unsubscribe(); }, 10000);        
+
+        const interval1 = Rx.Observable.interval(1000).map(x => x * 2).filter(x => x%2 === 0);
+        const subscription1 = interval1.subscribe(val => console.log(val)) 
+        setTimeout(() => { 
+            msubscription.unsubscribe(); 
+            subscription.unsubscribe(); 
+            subscription1.unsubscribe(); 
+        }, 10000);      
+
+    </script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"> </script>
+    <script src="https://unpkg.com/@reactivex/rxjs/dist/global/Rx.js"> </script>
+</body>
+</html
