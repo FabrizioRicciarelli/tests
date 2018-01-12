@@ -5,6 +5,14 @@ export class Book {
     published: string;
     description: string;
     coverImage: string;
+    constructor(isbn, title, authors, published, description, coverImage) {
+        this.isbn = isbn;
+        this.title = title;
+        this.authors = authors;
+        this.published = published;
+        this.description = description;
+        this.coverImage = coverImage;
+    }
 }
 export class Framework {
     name: string;

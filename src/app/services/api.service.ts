@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable/* , Inject */ } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -6,13 +6,15 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { environment } from '../../environments/environment';
-import { TodoItem, Framework } from '../models/model-base';
+import { TodoItem, Framework, Book } from '../models/model-base';
 
 const API_URL = environment.apiUrl;
+
 @Injectable()
 
 export class ApiService {
   constructor(
+    // @Inject(Http) private http: Http
     private http: Http
   ) { }
 
@@ -34,11 +36,20 @@ export class ApiService {
       });
   }
   
+  public getBookByISBN(isbn: number): Observable<Book> {
+    return this.http
+      .get(API_URL + '/books/' + isbn)
+      .map(response => {
+        const books = response.json();
+        return books.map((book) => new Book(book.isbn, book.title, book.authors, book.published, book.description, book.coverImage));
+      });
+  }
+
   public getAllTodos(): Observable<TodoItem[]> {
     return this.http
       .get(API_URL + '/todos')
       .map(response => {
-        console.info('getAllTodos() error: ' + response);
+        console.info('getAllTodos() response: ' + response);
         const todos = response.json();
         return todos.map((todo) => new TodoItem(todo.id, todo.title, todo.complete));
       })
@@ -53,21 +64,39 @@ export class ApiService {
     return this.http
       .get(API_URL + '/frameworks')
       .map(response => {
-        console.info('getAllFrameworks() error: ' + response);
+        console.info('getAllFrameworks() response: ' + response);
         const fws = response.json();
         return fws.map((fw) => new Framework(fw.name, fw.releaseYear, fw.logoUrl, fw.description));
       })
-      .catch(this._todoErrorHandler);
+      .catch(this._frameworkErrorHandler);
   }
   _frameworkErrorHandler(error: Response) {
     console.info('getAllFrameworks() error: ' + error);
     return Observable.throw(error || 'Server Error');
   }
 
+  public getAllBooks(): Observable<Book[]> {
+    return this.http
+      .get(API_URL + '/books')
+      .map(response => {
+        console.info('getAllBooks() response: ' + response);
+        const bks = response.json();
+        return bks.map((book) => new Book(book.isbn, book.title, book.authors, book.published, book.description, book.coverImage));
+      })
+      .catch(this._bookErrorHandler);
+  }
+  _bookErrorHandler(error: Response) {
+    console.info('getAllBooks() error: ' + error);
+    return Observable.throw(error || 'Server Error');
+  }
+
   public createTodo(todo: TodoItem): any { return this.http.post(API_URL + '/todos', todo); }
   public createFramework(framework: Framework): any { return this.http.post(API_URL + '/frameworks', framework); }
+  public createBook(book: Book): any { return this.http.post(API_URL + '/books', book); }
   public updateTodo(todo: TodoItem): any { return this.http.put(API_URL + '/todos', todo); }
   public updateFramework(framework: Framework): any { return this.http.put(API_URL + '/frameworks', framework); }
+  public updateBook(book: Book): any { return this.http.put(API_URL + '/books', book); }
   public deleteTodoById(todoId: number): any { return this.http.delete(API_URL + '/todos/' + todoId); }
   public deleteFrameworkByName(frameworkName: string): any { return this.http.delete(API_URL + '/frameworks/?name=' + frameworkName); }
+  public deleteBookByISBN(isbn: number): any { return this.http.delete(API_URL + '/books/' + isbn); }
 }

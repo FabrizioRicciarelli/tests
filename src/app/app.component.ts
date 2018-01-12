@@ -7,11 +7,11 @@ import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';
 
 // User-defined
-import { ToDoModel, TodoItem, Book, Framework, Img } from './models/model-base';
-import { BOOKS, IMGS, FWKS } from './models/model-data';
-import { BookStoreService } from './services/book-store.service';
+import { ToDoModel, TodoItem, Framework, Book } from './models/model-base';
 import { TodoService } from './services/todo.service';
 import { FrameworkService } from './services/framework.service';
+import { BookService } from './services/book.service';
+// import { TodoService, FrameworkService, BookService } from './services/models.service';
 import { ApiService } from './services/api.service';
 
 
@@ -22,24 +22,22 @@ import { ApiService } from './services/api.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['bootstrap.css', './app.component.css'],
-  providers: [BookStoreService, TodoService, FrameworkService]
+  providers: [TodoService, FrameworkService, BookService]
 })
 export class AppComponent implements OnInit {
   // ---------------------
   // ****  VARIABLES  ****
   // ---------------------
   // external arrays, array of classes (from model-data)
-  public booksList: Book[] = BOOKS;
-  // public imgs: Img[] = IMGS;
-  public frameworks: Framework[]; // = FWKS;
+  // public imgs: Img[] = IMGS; /* OLD mock-up data, now data comes from REST WebAPI service */
+  public frameworks: Framework[]; // = FWKS; /* OLD mock-up data, now data comes from REST WebAPI service */
+  public booksList: Book[]; // = BOOKS; /* OLD mock-up data, now data comes from REST WebAPI service */
 
   // external classes (from model-base)
+  todoModel: ToDoModel;
   selectedBook: Book;
   selectedIncapsuledBook: Book;
-  todoModel: ToDoModel;
   bookTitle = 'Elenco Libri';
-
-  // API services
 
   // ngModel/updatable elements
   public selectedcar = 'Ferrari';
@@ -63,9 +61,9 @@ export class AppComponent implements OnInit {
   // ****  METHODS  ****
   // -------------------
   constructor(
-    private bookStoreService: BookStoreService,
     private todoService: TodoService,
-    private frameworkService: FrameworkService
+    private frameworkService: FrameworkService,
+    private bookService: BookService
   ) {
     this.title = 'tests';
     this.messageAlert = '';
@@ -77,6 +75,7 @@ export class AppComponent implements OnInit {
   }
 
   fillModelArraysFromAPIServices() {
+    // Popolamento todoModel con dati ritornati dalle WebAPI
     this.todoModel = new ToDoModel();
     this.todoModel.items = this.todoService.getAllTodos().subscribe(items => this.todoModel.items = items);
     // Analogo alla riga precedente, ma per un maggior controllo sulla singola riga/colonna di dati
@@ -89,7 +88,8 @@ export class AppComponent implements OnInit {
     //     }
     //   });
 
-    // Per il momento è l'unica via che conosco per valorizzare l'oggetto frameworks
+    // Popolamento Frameworks con dati ritornati dalle WebAPI
+    // (per il momento, quella che segue è l'unica via che conosco per valorizzare l'oggetto frameworks)
     this.frameworks = new Array<Framework>();
     const subscription = this.frameworkService.getAllFrameworks().subscribe(
       frameworks => {
@@ -100,7 +100,17 @@ export class AppComponent implements OnInit {
         }
       });
 
-    // Inizializzazione con dati mockup locali
+    this.booksList = new Array<Book>();
+    const subscriptionBook = this.bookService.getAllBooks().subscribe(
+      books => {
+        if (books != null && books !== undefined) {
+          books.forEach(obj => {
+            this.booksList.push({ isbn: obj.isbn, title: obj.title, authors: obj.authors, published: obj.published, description: obj.description, coverImage: obj.coverImage });
+          });
+        }
+      });
+
+    // Inizializzazione todoModel con dati mockup locali
     // this.todoModel = new ToDoModel();
     // this.todoModel.user = 'Angular';
     // this.todoModel.items = [
@@ -121,7 +131,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  addItem(newItem) {
+  addTodoItem(newItem) {
     if (newItem !== '') {
       this.todoModel.items.push(new TodoItem(newItem.id, newItem.description, false));
       this.el.nativeElement.value = '';
@@ -160,15 +170,12 @@ export class AppComponent implements OnInit {
 
   // FROM service
   getBooksList() {
-    this.booksList = this.bookStoreService.getBooks();
+    return this.booksList;
   }
-  getServiceBookDetails(isbn: number) {
-    this.selectedBook = this.bookStoreService.getBook(isbn);
-  }
-  deleteServiceBook(isbn: number) {
-    this.selectedBook = null;
-    this.booksList = this.bookStoreService.deleteBook(isbn);
-  }
+  // deleteServiceBook(isbn: number) {
+  //   this.selectedBook = null;
+  //   this.booksList = this.bookService.deleteBookByISBN(isbn);
+  // }
 
   // FROM local model-data
   getBook(isbn: number) {
@@ -187,10 +194,12 @@ export class AppComponent implements OnInit {
 
   deleteBook(isbn: number) {
     this.booksList = this.booksList.filter(book => book.isbn !== isbn);
-    if (isbn === this.selectedBook.isbn) {
+    if (this.selectedBook != null && this.selectedBook.isbn === isbn) {
       this.selectedBook = null;
     }
-    this.selectedIncapsuledBook = null;
+    if (this.selectedIncapsuledBook != null && this.selectedIncapsuledBook.isbn === isbn) {
+      this.selectedIncapsuledBook = null;
+    }
     return this.booksList;
   }
 }
