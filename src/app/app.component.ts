@@ -131,11 +131,27 @@ export class AppComponent implements OnInit {
     }
   }
 
-  addTodoItem(newItem) {
-    if (newItem !== '') {
-      this.todoModel.items.push(new TodoItem(newItem.id, newItem.description, false));
+  addTodoItem(desc) {
+    if (desc !== '') {
+      this.todoModel.items.push(new TodoItem(this.getLastTodoItemId() + 1, desc, false));
       this.el.nativeElement.value = '';
+      // console.info(this.todoModel.items);
     }
+  }
+
+  getLastTodoItemId() {
+    // let maxId = 0;
+    // if (this.todoModel.items.length > 0) {
+    //   const idArr = this.todoModel.items.map(obj => obj.id); // Crea un array con la sola proprietà "id"
+    //   maxId = Math.max(...idArr); // Estrae il valore massimo dall'array composto dalla sola colonna "id"
+    //   // console.log('idArr:' + idArr);
+    //   // console.log('maxId:' + maxId);
+    // }
+    // // return (this.todoModel.items.length > 0) ? maxId :  1;
+    
+    return (this.todoModel.items.length > 0) 
+      ? Math.max(...this.todoModel.items.map(obj => obj.id)) 
+      :  1;
   }
 
   getInlineStyles(framework) {
