@@ -5,6 +5,21 @@
   <img width="90" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="> 5+
 </div>
 <hr />
+<p>
+Attenzione! I seguenti esempi si avvalgono di un DB json reso disponibile attraverso un server API che va preventivamente (prima della presente applicazione) invocato in questo modo:<br>
+</p>
+<ol type="1" style="font-size:1.1em">
+  <li style="font-size:1.1em">Posizionarsi all'interno della cartella C:\NOVOMATIC_PRJ\Angular\test-servers\server-todo (o altra cartella contenente un DB json)</li>
+  <li style="font-size:1.1em">Invocare il server <i style="color:orange">json-server --watch db.json</i> (al posto di <i>db.json</i> si può utilizzare qualunque file in formato JSON, a patto che questo contenga le strutture adeguate per rappresentare gli esempi che seguono)</li>
+</ol>
+<p>
+Il server json va INSTALLATO in ciascuna cartella di lavoro (contenente i DB json da esporre attraverso le API) tramite il comando <br><br><i style="color:orange">npm install -g json-server</i><br><br> e, dalla stessa cartella di lavoro, invocato. Ovviamente, è possibile accorpare tutti i databases JSON in un'unica cartella e in questa effettuare - se necessaria - l'installazione del server e da qui invocarne l'esecuzione.</p>
+<p>
+Qualora risulti necessario eseguire più servers json contemporaneamente, magari per esporre i dati di diversi DB json, specificare per ciascun server una porta diversa
+da quella di default (3000) attraverso la specifica PORT, in questo modo:<br><br><i style="color:orange">json-server --watch MDSL.json --port 3001</i><br><br>
+Per una documentazione più estensiva circa l'utilizzo del json-server, fare riferimento <a style="text-decoration: crimson underline" href="https://github.com/typicode/json-server/blob/master/README.md" target="_blank">al presente collegamento</a> o a <a style="text-decoration: crimson underline"  href="https://medium.com/codingthesmartway-com-blog/create-a-rest-api-with-json-server-36da8680136d" target="_blank">quest'altro</a>.
+</p>
+<hr />
 <h3 class="bg-primary p-a-1">{{getName()}}'s To Do List</h3>
 <div class="m-t-1 m-b-1">
   <input type="text" #todoText />
@@ -486,4 +501,13 @@ app.component.html<br>
     </div>
   </div>
 </div>
-<hr />
+<!-- <hr />
+<h3>NgTreeTable</h3>
+<div class="row">
+    <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+    <ay-treeTable [value]="sampledata" [globalFilter]="gb" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+        <ay-column field="name" header="Name"></ay-column>
+        <ay-column field="gender" header="Gender"></ay-column>
+    </ay-treeTable>
+</div>
+ -->

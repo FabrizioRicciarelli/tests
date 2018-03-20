@@ -56,7 +56,35 @@ export class AppComponent implements OnInit {
   // Form elements
   @ViewChild('todoText') el: ElementRef;
 
-
+/*   // ng-treetable data definition
+  public sampledata = {
+    'data':
+    [  
+        {  
+            'data': {  
+                'name': 'Andrew',
+                'gender': 'Male'
+            },
+            'children': [
+                {  
+                    'data': {  
+                        'name': 'Andrewson',
+                        'gender': 'Male'
+                    },
+                    'children': [  
+                        {  
+                            'data': {  
+                                'name': 'Eric',
+                                'gender': 'Male'
+                            }
+                        }                       
+                    ]
+                }
+            ]
+        }
+    ]
+  };
+ */
   // -------------------
   // ****  METHODS  ****
   // -------------------
