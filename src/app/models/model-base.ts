@@ -26,6 +26,81 @@ export class Framework {
         this.description = description;
     }
 }
+
+/* export interface Child {
+    name: string;
+    size?: number;
+}
+
+export interface Child {
+    name: string;
+    size?: number;
+    children: Child[];
+}
+
+export interface Child {
+    name: string;
+    children: Child[];
+    size?: number;
+}
+
+export interface Child {
+    name: string;
+    children: Child[];
+}
+
+export interface MainBigTree {
+    name: string;
+    children: Child[];
+} */
+
+interface RootObject {
+    name: string;
+    children: Child4[];
+  }
+  
+  interface Child4 {
+    name: string;
+    children: Child3[];
+  }
+  
+  interface Child3 {
+    name: string;
+    children?: Child2[];
+    size?: number;
+  }
+  
+  interface Child2 {
+    name: string;
+    size?: number;
+    children?: Child[];
+  }
+  
+  interface Child {
+    name: string;
+    size: number;
+  }
+
+export class BigTree {
+    name: string;
+    // bigtrees: MainBigTree[];
+    children: Child4[];
+    constructor(instanceData?: BigTree) {
+        if (instanceData) {
+          this.deserialize(instanceData);
+        }
+    } 
+
+    deserialize(instanceData: BigTree) {
+    const keys = Object.keys(this);
+
+    for (const key of keys) {
+      if (instanceData.hasOwnProperty(key)) {
+        this[key] = instanceData[key];
+      }
+    }
+  }
+}
 export class Img {
     name: string;
     url: string;

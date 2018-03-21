@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { TodoItem, Framework, Book } from '../models/model-base';
+import { TodoItem, Framework, Book, BigTree } from '../models/model-base';
 import { Observable } from 'rxjs/Observable';
 
 // Per qualche motivo, al momento ignoto, tre classi di servizio configurate come riportato di seguito non funzionano,
@@ -11,11 +11,11 @@ export class TodoService {
     constructor(private api: ApiService) {
     }
     addTodo(todo: TodoItem): Observable<TodoItem> { return this.api.createTodo(todo); }
-    complete() {  /* this.items.map(x=>x.id) */ }
     deleteTodoById(id: number): Observable<TodoItem> { return this.api.deleteTodoById(id); }
     updateTodo(todo: TodoItem): Observable<TodoItem> { return this.api.updateTodo(todo); }
     getAllTodos(): Observable<TodoItem[]> { return this.api.getAllTodos(); }
     getTodoById(id: number): Observable<TodoItem> { return this.api.getTodoById(id); }
+    complete() { }
 }
 
 @Injectable()
@@ -26,7 +26,7 @@ export class FrameworkService {
     updateFramework(framework: Framework): Observable<Framework> { return this.api.updateFramework(framework); }
     getAllFrameworks(): Observable<Framework[]> { return this.api.getAllFrameworks(); }
     getFrameworkByName(name: string): Observable<Framework> { return this.api.getFrameworkByName(name); }
-    complete() { /* this.items.map(x=>x.id) */ }
+    complete() { }
 }
 
 @Injectable()
@@ -37,6 +37,16 @@ export class BookService {
     updateBook(book: Book): Observable<Book> { return this.api.updateBook(book); }
     getAllBooks(): Observable<Book[]> { return this.api.getAllBooks(); }
     getBookByISBN(isbn: number): Observable<Book> { return this.api.getBookByISBN(isbn); }
-    complete() { /* this.items.map(x=>x.id) */ }
+    complete() { }
 }
 
+@Injectable()
+export class BigTreeService {
+    constructor(private api: ApiService) { }
+    addBigTree(bigtree: BigTree): Observable<BigTree> { return this.api.createBigTree(bigtree); }
+    deleteBigTreeByName(name: string): Observable<BigTree> { return this.api.deleteBigTreeByName(name); }
+    updateBigTree(bigtree: BigTree): Observable<BigTree> { return this.api.updateBigTree(bigtree); }
+    getAllBigTrees(): Observable<BigTree[]> { return this.api.getAllBigTrees(); }
+    getBigTreeByName(name: string): Observable<BigTree> { return this.api.getBigTreeByName(name); }
+    complete() { }
+}

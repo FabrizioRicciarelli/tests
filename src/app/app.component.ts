@@ -7,11 +7,11 @@ import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';
 
 // User-defined
-import { ToDoModel, TodoItem, Framework, Book } from './models/model-base';
+import { ToDoModel, TodoItem, Framework, Book, BigTree } from './models/model-base';
 import { TodoService } from './services/todo.service';
 import { FrameworkService } from './services/framework.service';
 import { BookService } from './services/book.service';
-// import { TodoService, FrameworkService, BookService } from './services/models.service';
+import { BigTreeService } from './services/bigtree.service';
 import { ApiService } from './services/api.service';
 
 
@@ -22,9 +22,10 @@ import { ApiService } from './services/api.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['bootstrap.css', './app.component.css'],
-  providers: [TodoService, FrameworkService, BookService]
+  providers: [TodoService, FrameworkService, BookService, BigTreeService]
 })
 export class AppComponent implements OnInit {
+
   // ---------------------
   // ****  VARIABLES  ****
   // ---------------------
@@ -32,6 +33,10 @@ export class AppComponent implements OnInit {
   // public imgs: Img[] = IMGS; /* OLD mock-up data, now data comes from REST WebAPI service */
   public frameworks: Framework[]; // = FWKS; /* OLD mock-up data, now data comes from REST WebAPI service */
   public booksList: Book[]; // = BOOKS; /* OLD mock-up data, now data comes from REST WebAPI service */
+  // ng-treetable
+  nodes: BigTree;
+  selectedRows: any[];
+
 
   // external classes (from model-base)
   todoModel: ToDoModel;
@@ -56,48 +61,25 @@ export class AppComponent implements OnInit {
   // Form elements
   @ViewChild('todoText') el: ElementRef;
 
-/*   // ng-treetable data definition
-  public sampledata = {
-    'data':
-    [  
-        {  
-            'data': {  
-                'name': 'Andrew',
-                'gender': 'Male'
-            },
-            'children': [
-                {  
-                    'data': {  
-                        'name': 'Andrewson',
-                        'gender': 'Male'
-                    },
-                    'children': [  
-                        {  
-                            'data': {  
-                                'name': 'Eric',
-                                'gender': 'Male'
-                            }
-                        }                       
-                    ]
-                }
-            ]
-        }
-    ]
-  };
- */
   // -------------------
   // ****  METHODS  ****
   // -------------------
   constructor(
     private todoService: TodoService,
     private frameworkService: FrameworkService,
-    private bookService: BookService
+    private bookService: BookService,
+    private bigtreeService: BigTreeService
   ) {
     this.title = 'tests';
     this.messageAlert = '';
     this.fillModelArraysFromAPIServices();
   }
 
+  // ng-treetable
+  nodeSelect(event) {
+    console.log(event);
+  }
+  
   ngOnInit(): void {
     this.getBooksList();
   }
@@ -128,6 +110,21 @@ export class AppComponent implements OnInit {
         }
       });
 
+    let i = 0;
+    let j = 0;
+    this.nodes = new BigTree();
+    const subscriptionBigTree = this.bigtreeService.getAllBigTrees().subscribe(
+      nodes => {
+        nodes.forEach(
+          obj => {
+            Object.assign(nodes, ...obj.bigtrees);
+            console.info(nodes);
+/*             this.nodes.bigtrees.push({ name: obj.bigtrees[i].name, children: obj.bigtrees[i].children });
+ */          }
+        );
+      }
+    );
+
     this.booksList = new Array<Book>();
     const subscriptionBook = this.bookService.getAllBooks().subscribe(
       books => {
@@ -137,7 +134,7 @@ export class AppComponent implements OnInit {
           });
         }
       });
-
+  
     // Inizializzazione todoModel con dati mockup locali
     // this.todoModel = new ToDoModel();
     // this.todoModel.user = 'Angular';

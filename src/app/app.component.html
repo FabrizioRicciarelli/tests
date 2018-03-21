@@ -1,3 +1,4 @@
+<div style="padding:10px;">
 <div style="text-align:center">
   <h3>
     Welcome to {{title}}!
@@ -501,13 +502,15 @@ app.component.html<br>
     </div>
   </div>
 </div>
-<!-- <hr />
+<hr />
 <h3>NgTreeTable</h3>
-<div class="row">
+<div class="row" style="margin:10px; padding:5px;">
     <input #gb type="text" pInputText size="50" placeholder="Global Filter">
-    <ay-treeTable [value]="sampledata" [globalFilter]="gb" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+    <ay-treeTable [value]="nodes.flare" [globalFilter]="gb" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
         <ay-column field="name" header="Name"></ay-column>
-        <ay-column field="gender" header="Gender"></ay-column>
+        <ay-column field="size" header="Size"></ay-column>
     </ay-treeTable>
 </div>
- -->
+
+
+</div>

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { environment } from '../../environments/environment';
-import { TodoItem, Framework, Book } from '../models/model-base';
+import { TodoItem, Framework, Book, BigTree } from '../models/model-base';
 
 const API_URL = environment.apiUrl;
 
@@ -45,6 +45,15 @@ export class ApiService {
       });
   }
 
+  public getBigTreeByName(bigtreeName: string): Observable<BigTree> {
+    return this.http
+      .get(API_URL + '/bigtrees/?name=' + bigtreeName)
+      .map(response => {
+        const bigtrees = response.json();
+        return bigtrees.map((bigtree) => new BigTree(bigtree));
+      });
+  }
+  
   public getAllTodos(): Observable<TodoItem[]> {
     return this.http
       .get(API_URL + '/todos')
@@ -90,13 +99,33 @@ export class ApiService {
     return Observable.throw(error || 'Server Error');
   }
 
+  public getAllBigTrees(): Observable<BigTree[]> {
+    return this.http
+      .get(API_URL + '/bigtrees')
+      .map(response => {
+        console.info('getAllBigTrees() response: ' + response);
+        const bigtrees = response.json();
+        return bigtrees.map((bigtree) => new BigTree(bigtree));
+      })
+      .catch(this._bigtreeErrorHandler);
+  }
+  _bigtreeErrorHandler(error: Response) {
+    console.info('getAllBigTrees() error: ' + error);
+    return Observable.throw(error || 'Server Error');
+  }
+
   public createTodo(todo: TodoItem): any { return this.http.post(API_URL + '/todos', todo); }
   public createFramework(framework: Framework): any { return this.http.post(API_URL + '/frameworks', framework); }
   public createBook(book: Book): any { return this.http.post(API_URL + '/books', book); }
+  public createBigTree(bigtree: BigTree): any { return this.http.post(API_URL + '/bigtree', bigtree); }
+  
   public updateTodo(todo: TodoItem): any { return this.http.put(API_URL + '/todos', todo); }
   public updateFramework(framework: Framework): any { return this.http.put(API_URL + '/frameworks', framework); }
   public updateBook(book: Book): any { return this.http.put(API_URL + '/books', book); }
+  public updateBigTree(bigtree: BigTree): any { return this.http.put(API_URL + '/bigtree', bigtree); }
+  
   public deleteTodoById(todoId: number): any { return this.http.delete(API_URL + '/todos/' + todoId); }
   public deleteFrameworkByName(frameworkName: string): any { return this.http.delete(API_URL + '/frameworks/?name=' + frameworkName); }
   public deleteBookByISBN(isbn: number): any { return this.http.delete(API_URL + '/books/' + isbn); }
+  public deleteBigTreeByName(bigtreeName: string): any { return this.http.delete(API_URL + '/bigtree/?name=' + bigtreeName); }
 }
