@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { TodoItem, Framework, Book, BigTree } from '../models/model-base';
+import { TodoItem, Framework, Book, MDSLmin } from '../models/model-base';
 import { Observable } from 'rxjs/Observable';
 
 // Per qualche motivo, al momento ignoto, tre classi di servizio configurate come riportato di seguito non funzionano,
@@ -41,12 +41,8 @@ export class BookService {
 }
 
 @Injectable()
-export class BigTreeService {
+export class MDSLminService {
     constructor(private api: ApiService) { }
-    addBigTree(bigtree: BigTree): Observable<BigTree> { return this.api.createBigTree(bigtree); }
-    deleteBigTreeByName(name: string): Observable<BigTree> { return this.api.deleteBigTreeByName(name); }
-    updateBigTree(bigtree: BigTree): Observable<BigTree> { return this.api.updateBigTree(bigtree); }
-    getAllBigTrees(): Observable<BigTree[]> { return this.api.getAllBigTrees(); }
-    getBigTreeByName(name: string): Observable<BigTree> { return this.api.getBigTreeByName(name); }
+    // getAllMDSLmins(): Observable<MDSLmin[]> { return this.api.getAllMDSLmin(); }
     complete() { }
 }

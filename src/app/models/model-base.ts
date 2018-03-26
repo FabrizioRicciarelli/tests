@@ -27,80 +27,78 @@ export class Framework {
     }
 }
 
-/* export interface Child {
-    name: string;
-    size?: number;
-}
+// // ng-treetable -----------------------------
+// export class MDSLmin {
+//     data: Master[];
+//     constructor(instanceData?: MDSLmin) {
+//         if (instanceData) {
+//           this.deserialize(instanceData);
+//         }
+//     }
+//     deserialize(instanceData: MDSLmin) {
+//         const keys = Object.keys(this);
+    
+//         for (const key of keys) {
+//           if (instanceData.hasOwnProperty(key)) {
+//             this[key] = instanceData[key];
+//           }
+//         }
+//     }        
+// }
 
-export interface Child {
-    name: string;
-    size?: number;
-    children: Child[];
-}
+// interface Master {
+//     data: MasterData;
+//     children: Detail[];
+// }
 
-export interface Child {
-    name: string;
-    children: Child[];
-    size?: number;
-}
+// interface MasterData {
+//     requestId: string;
+//     requestDesc: string;
+// }
 
-export interface Child {
-    name: string;
-    children: Child[];
-}
+// interface Detail {
+//     data: DetailData;
+//     children: Session[];
+// }
 
-export interface MainBigTree {
-    name: string;
-    children: Child[];
-} */
+// interface DetailData {
+//     requestDetailId: string;
+//     requestId: string;
+//     ticket: string;
+// }
 
-interface RootObject {
-    name: string;
-    children: Child4[];
-  }
-  
-  interface Child4 {
-    name: string;
-    children: Child3[];
-  }
-  
-  interface Child3 {
-    name: string;
-    children?: Child2[];
-    size?: number;
-  }
-  
-  interface Child2 {
-    name: string;
-    size?: number;
-    children?: Child[];
-  }
-  
-  interface Child {
-    name: string;
-    size: number;
-  }
+// interface Session {
+//     data: SessionData;
+//     children: Delta[];
+// }
 
-export class BigTree {
-    name: string;
-    // bigtrees: MainBigTree[];
-    children: Child4[];
-    constructor(instanceData?: BigTree) {
-        if (instanceData) {
-          this.deserialize(instanceData);
-        }
-    } 
+// interface SessionData {
+//     requestDetailId: string;
+//     SessionID: string;
+//     SessionParentID: string;
+//     Level: string;
+//     StartTicketCode: string;
+//     UnivocalLocationCode: string;
+//     MachineID: string;
+//     GD: string;
+//     AamsMachineCode: string;
+// }
 
-    deserialize(instanceData: BigTree) {
-    const keys = Object.keys(this);
+// interface Delta {
+//     data: DeltaData[];
+// }
 
-    for (const key of keys) {
-      if (instanceData.hasOwnProperty(key)) {
-        this[key] = instanceData[key];
-      }
-    }
-  }
-}
+// interface DeltaData {
+//     requestDetailId: string;
+//     UnivocalLocationCode: string;
+//     MachineID: string;
+//     GD: string;
+//     AamsMachineCode: string;
+//     SessionID: string;
+//     TicketCode: string;
+// }
+// // ------------------------ end ng-treetable
+
 export class Img {
     name: string;
     url: string;
@@ -122,11 +120,6 @@ export class ToDoModel {
     constructor() {
         this.user = 'Angular';
         this.items = [];
-        //     new TodoItem('Buy Flowers', false),
-        //     new TodoItem('Get Shoes', false),
-        //     new TodoItem('Collect Tickets', false),
-        //     new TodoItem('Call Joe', false)
-        // ];
     }
     // Simulate POST /todos
     addTodo(todo: TodoItem): ToDoModel {

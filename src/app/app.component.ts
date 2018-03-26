@@ -7,11 +7,11 @@ import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';
 
 // User-defined
-import { ToDoModel, TodoItem, Framework, Book, BigTree } from './models/model-base';
+import { ToDoModel, TodoItem, Framework, Book, /* MDSLmin */ } from './models/model-base';
 import { TodoService } from './services/todo.service';
 import { FrameworkService } from './services/framework.service';
 import { BookService } from './services/book.service';
-import { BigTreeService } from './services/bigtree.service';
+// import { MDSLminService } from './services/MDSLmin.service';
 import { ApiService } from './services/api.service';
 
 
@@ -22,7 +22,7 @@ import { ApiService } from './services/api.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['bootstrap.css', './app.component.css'],
-  providers: [TodoService, FrameworkService, BookService, BigTreeService]
+  providers: [TodoService, FrameworkService, BookService/* , MDSLmin */]
 })
 export class AppComponent implements OnInit {
 
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   public frameworks: Framework[]; // = FWKS; /* OLD mock-up data, now data comes from REST WebAPI service */
   public booksList: Book[]; // = BOOKS; /* OLD mock-up data, now data comes from REST WebAPI service */
   // ng-treetable
-  nodes: BigTree;
+  // mdslmins: MDSLmin[];
   selectedRows: any[];
 
 
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
     private todoService: TodoService,
     private frameworkService: FrameworkService,
     private bookService: BookService,
-    private bigtreeService: BigTreeService
+    // private mdslminService: MDSLminService
   ) {
     this.title = 'tests';
     this.messageAlert = '';
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
     // Popolamento Frameworks con dati ritornati dalle WebAPI
     // (per il momento, quella che segue è l'unica via che conosco per valorizzare l'oggetto frameworks)
     this.frameworks = new Array<Framework>();
-    const subscription = this.frameworkService.getAllFrameworks().subscribe(
+    const subscriptionFramework = this.frameworkService.getAllFrameworks().subscribe(
       frameworks => {
         if (frameworks != null && frameworks !== undefined) {
           frameworks.forEach(obj => {
@@ -110,21 +110,14 @@ export class AppComponent implements OnInit {
         }
       });
 
-    let i = 0;
-    let j = 0;
-    this.nodes = new BigTree();
-    const subscriptionBigTree = this.bigtreeService.getAllBigTrees().subscribe(
-      nodes => {
-        nodes.forEach(
-          obj => {
-            Object.assign(nodes, ...obj.bigtrees);
-            console.info(nodes);
-/*             this.nodes.bigtrees.push({ name: obj.bigtrees[i].name, children: obj.bigtrees[i].children });
- */          }
-        );
-      }
-    );
-
+    // this.mdslmins = new Array<MDSLmin>();
+    // const subscriptionMDSLmin = this.mdslminService.getAllMDSLmin().subscribe(
+    //   mdslmins => {
+    //     if (mdslmins != null && mdslmins !== undefined) {
+    //       mdslmins.forEach(obj => new MDSLmin());
+    //     }
+    //   });
+  
     this.booksList = new Array<Book>();
     const subscriptionBook = this.bookService.getAllBooks().subscribe(
       books => {
