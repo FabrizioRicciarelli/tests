@@ -27,77 +27,77 @@ export class Framework {
     }
 }
 
-// // ng-treetable -----------------------------
-// export class MDSLmin {
-//     data: Master[];
-//     constructor(instanceData?: MDSLmin) {
-//         if (instanceData) {
-//           this.deserialize(instanceData);
-//         }
-//     }
-//     deserialize(instanceData: MDSLmin) {
-//         const keys = Object.keys(this);
+// ng-treetable -----------------------------
+export class MDSLmin {
+    data: Master[];
+    constructor(instanceData?: MDSLmin) {
+        if (instanceData) {
+          this.deserialize(instanceData);
+        }
+    }
+    deserialize(instanceData: MDSLmin) {
+        const keys = Object.keys(this);
     
-//         for (const key of keys) {
-//           if (instanceData.hasOwnProperty(key)) {
-//             this[key] = instanceData[key];
-//           }
-//         }
-//     }        
-// }
+        for (const key of keys) {
+          if (instanceData.hasOwnProperty(key)) {
+            this[key] = instanceData[key];
+          }
+        }
+    }        
+}
 
-// interface Master {
-//     data: MasterData;
-//     children: Detail[];
-// }
+export interface Master {
+    data: MasterData;
+    children: Detail[];
+}
 
-// interface MasterData {
-//     requestId: string;
-//     requestDesc: string;
-// }
+export interface MasterData {
+    requestId: string;
+    requestDesc: string;
+}
 
-// interface Detail {
-//     data: DetailData;
-//     children: Session[];
-// }
+export interface Detail {
+    data: DetailData;
+    children: Session[];
+}
 
-// interface DetailData {
-//     requestDetailId: string;
-//     requestId: string;
-//     ticket: string;
-// }
+export interface DetailData {
+    requestDetailId: string;
+    requestId: string;
+    ticket: string;
+}
 
-// interface Session {
-//     data: SessionData;
-//     children: Delta[];
-// }
+export interface Session {
+    data: SessionData;
+    children: Delta[];
+}
 
-// interface SessionData {
-//     requestDetailId: string;
-//     SessionID: string;
-//     SessionParentID: string;
-//     Level: string;
-//     StartTicketCode: string;
-//     UnivocalLocationCode: string;
-//     MachineID: string;
-//     GD: string;
-//     AamsMachineCode: string;
-// }
+export interface SessionData {
+    requestDetailId: string;
+    SessionID: string;
+    SessionParentID: string;
+    Level: string;
+    StartTicketCode: string;
+    UnivocalLocationCode: string;
+    MachineID: string;
+    GD: string;
+    AamsMachineCode: string;
+}
 
-// interface Delta {
-//     data: DeltaData[];
-// }
+export interface Delta {
+    data: DeltaData[];
+}
 
-// interface DeltaData {
-//     requestDetailId: string;
-//     UnivocalLocationCode: string;
-//     MachineID: string;
-//     GD: string;
-//     AamsMachineCode: string;
-//     SessionID: string;
-//     TicketCode: string;
-// }
-// // ------------------------ end ng-treetable
+export interface DeltaData {
+    requestDetailId: string;
+    UnivocalLocationCode: string;
+    MachineID: string;
+    GD: string;
+    AamsMachineCode: string;
+    SessionID: string;
+    TicketCode: string;
+}
+// ------------------------ end ng-treetable
 
 export class Img {
     name: string;

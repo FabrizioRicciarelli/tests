@@ -7,11 +7,11 @@ import { NgSwitch } from '@angular/common';
 import { FormControl } from '@angular/forms/src/model';
 
 // User-defined
-import { ToDoModel, TodoItem, Framework, Book, /* MDSLmin */ } from './models/model-base';
+import { ToDoModel, TodoItem, Framework, Book, MDSLmin } from './models/model-base';
 import { TodoService } from './services/todo.service';
 import { FrameworkService } from './services/framework.service';
 import { BookService } from './services/book.service';
-// import { MDSLminService } from './services/MDSLmin.service';
+import { MDSLminService } from './services/MDSLmin.service';
 import { ApiService } from './services/api.service';
 
 
@@ -22,7 +22,7 @@ import { ApiService } from './services/api.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['bootstrap.css', './app.component.css'],
-  providers: [TodoService, FrameworkService, BookService/* , MDSLmin */]
+  providers: [TodoService, FrameworkService, BookService, MDSLminService]
 })
 export class AppComponent implements OnInit {
 
@@ -34,9 +34,104 @@ export class AppComponent implements OnInit {
   public frameworks: Framework[]; // = FWKS; /* OLD mock-up data, now data comes from REST WebAPI service */
   public booksList: Book[]; // = BOOKS; /* OLD mock-up data, now data comes from REST WebAPI service */
   // ng-treetable
-  // mdslmins: MDSLmin[];
+  treetableObj: MDSLmin;
   selectedRows: any[];
 
+  rows = [
+    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+    { name: 'Dany', gender: 'Male', company: 'KFC' },
+    { name: 'Molly', gender: 'Female', company: 'Burger King' },
+  ];
+  columns = [
+    { prop: 'name' },
+    { name: 'Gender' },
+    { name: 'Company' }
+  ];
+
+
+  nodes = {
+    'data':
+      [
+        {
+          'data': {
+            'name': 'Documents',
+            'size': '75kb',
+            'type': 'Folder'
+          },
+          'children': [
+            {
+              'data': {
+                'name': 'Work',
+                'size': '55kb',
+                'type': 'Folder'
+              },
+              'children': [
+                {
+                  'data': {
+                    'name': 'Expenses.doc',
+                    'size': '30kb',
+                    'type': 'Document'
+                  }
+                },
+                {
+                  'data': {
+                    'name': 'Resume.doc',
+                    'size': '25kb',
+                    'type': 'Resume'
+                  }
+                }
+              ]
+            },
+            {
+              'data': {
+                'name': 'Home',
+                'size': '20kb',
+                'type': 'Folder'
+              },
+              'children': [
+                {
+                  'data': {
+                    'name': 'Invoices',
+                    'size': '20kb',
+                    'type': 'Text'
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          'data': {
+            'name': 'Pictures',
+            'size': '150kb',
+            'type': 'Folder'
+          },
+          'children': [
+            {
+              'data': {
+                'name': 'barcelona.jpg',
+                'size': '90kb',
+                'type': 'Picture'
+              }
+            },
+            {
+              'data': {
+                'name': 'primeui.png',
+                'size': '30kb',
+                'type': 'Picture'
+              }
+            },
+            {
+              'data': {
+                'name': 'optimus.jpg',
+                'size': '30kb',
+                'type': 'Picture'
+              }
+            }
+          ]
+        }
+      ]
+  };
 
   // external classes (from model-base)
   todoModel: ToDoModel;
@@ -68,7 +163,7 @@ export class AppComponent implements OnInit {
     private todoService: TodoService,
     private frameworkService: FrameworkService,
     private bookService: BookService,
-    // private mdslminService: MDSLminService
+    private mdslminService: MDSLminService
   ) {
     this.title = 'tests';
     this.messageAlert = '';
@@ -110,13 +205,13 @@ export class AppComponent implements OnInit {
         }
       });
 
-    // this.mdslmins = new Array<MDSLmin>();
-    // const subscriptionMDSLmin = this.mdslminService.getAllMDSLmin().subscribe(
-    //   mdslmins => {
-    //     if (mdslmins != null && mdslmins !== undefined) {
-    //       mdslmins.forEach(obj => new MDSLmin());
-    //     }
-    //   });
+    this.treetableObj = new MDSLmin();
+    const subscriptionMDSLmin = this.mdslminService.getAllMDSLmin().subscribe(
+      mdslminObj => {
+        if (mdslminObj != null && mdslminObj !== undefined) {
+          this.treetableObj = mdslminObj;
+        }
+      });
   
     this.booksList = new Array<Book>();
     const subscriptionBook = this.bookService.getAllBooks().subscribe(

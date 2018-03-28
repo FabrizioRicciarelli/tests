@@ -43,6 +43,6 @@ export class BookService {
 @Injectable()
 export class MDSLminService {
     constructor(private api: ApiService) { }
-    // getAllMDSLmins(): Observable<MDSLmin[]> { return this.api.getAllMDSLmin(); }
+    getAllMDSLmins(): Observable<MDSLmin> { return this.api.getAllMDSLmin(); }
     complete() { }
 }

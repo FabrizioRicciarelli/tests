@@ -6,12 +6,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { environment } from '../../environments/environment';
-import { TodoItem, Framework, Book, /* MDSLmin */ } from '../models/model-base';
+import { TodoItem, Framework, Book, MDSLmin } from '../models/model-base';
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
-
 export class ApiService {
   constructor(
     private http: Http
@@ -98,20 +97,20 @@ export class ApiService {
     return Observable.throw(error || 'Server Error');
   }
 
-  // public getAllMDSLmin(): Observable<MDSLmin[]> {
-  //   return this.http
-  //     .get(API_URL + '/mdslmin')
-  //     .map(response => {
-  //       console.info('getAllMDSLmin() response: ' + response);
-  //       const mdslmins = response.json();
-  //       return mdslmins.map((mdslmin) => new MDSLmin(mdslmin));
-  //     })
-  //     .catch(this._mdslminErrorHandler);
-  // }
-  // _mdslminErrorHandler(error: Response) {
-  //   console.info('getAllMDSLmin() error: ' + error);
-  //   return Observable.throw(error || 'Server Error');
-  // }
+  public getAllMDSLmin(): Observable<MDSLmin> {
+    return this.http
+      .get(API_URL + '/mdslmin')
+      .map(response => {
+        console.info('getAllMDSLmin() response: ' + response);
+        const mdslmins = response.json();
+        return mdslmins;
+      })
+      .catch(this._mdslminErrorHandler);
+  }
+  _mdslminErrorHandler(error: Response) {
+    console.info('getAllMDSLmin() error: ' + error);
+    return Observable.throw(error || 'Server Error');
+  }
 
   public createTodo(todo: TodoItem): any { return this.http.post(API_URL + '/todos', todo); }
   public createFramework(framework: Framework): any { return this.http.post(API_URL + '/frameworks', framework); }
