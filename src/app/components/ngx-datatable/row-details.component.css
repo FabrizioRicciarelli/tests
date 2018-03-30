@@ -5,8 +5,8 @@ body {
     text-align: left;
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 2rem;
+    font-size: small;
+    /* line-height: 2rem; */
     letter-spacing: 0.01rem;
     color: #212121;
     background-color: #fafafa;
@@ -20,21 +20,23 @@ body {
   .ngx-datatable,
   .info {
     text-align: left;
-    width: 75%;
+    width: 100%;
+    border: 1px solid lightsteelblue;
     margin: 0 auto;
   }
   
   .info {
     box-sizing: border-box;
     padding: 0 1em; 
-    border: solid 1px #ccc; 
     background: white;
-    font-size: .8em;
-    margin-bottom: 1em;
+    font-size: smaller/* .8em */;
+    /* margin-bottom: 1em; */
   }
-  
+  .header {
+    background-color: #AAAA;
+  }
   .ngx-datatable.scroll-vertical {
-    height: 70vh;
+    height: /* 70 */40vh;
   }
   
   .selected-column {
@@ -51,7 +53,7 @@ body {
   
   
   input[type=text] {
-    font-size: 14px;
+    font-size: small/* 14px */;
     display: block;
     background: transparent;
     width: 100%;
@@ -61,8 +63,8 @@ body {
   
   
   textarea {
-    font-size: 14px;
-    font-family: sans-serif;
+    font-size: small/* 14px */;
+    font-family: Roboto/* sans-serif */;
     display: block;
     background: transparent;
     width: 100%;
@@ -335,6 +337,7 @@ body {
 [class^="datatable-icon-"]:before,
 [class*=" datatable-icon-"]:before {
   font-family: "data-table" !important;
+  font-size: small;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;

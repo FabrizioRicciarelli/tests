@@ -1,9 +1,11 @@
 div, p, td, th {
     color: steelblue;
+}
+
+div.row {
     font-family: tahoma;
     font-size:14pt;
 }
-
 /* div {
     border: 1px solid yellow;
 }
