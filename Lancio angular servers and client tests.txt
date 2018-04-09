@@ -1,0 +1,6 @@
+E:\websites\NOVOMATIC\Nobis\RawDataLitePortal\Code&Angular\Angular\test-servers\server-todo:
+json-server --watch 100k.json --port 3001
+json-server --watch db.json
+
+E:\websites\NOVOMATIC\Nobis\RawDataLitePortal\Code&Angular\Angular\tests:
+ng serve
