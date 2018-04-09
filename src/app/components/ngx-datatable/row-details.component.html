@@ -14,22 +14,22 @@
     <ngx-datatable
       #myTable
       class='material striped'
-      [columnMode]='force'
+      [columnMode]='standard'
       [headerHeight]='40'
       [footerHeight]='40'
       [rowHeight]='20'
       [scrollbarV]='true'
       [rows]='rows'
       [selectionType]='single'
-      [sortType]='multi'
+      [sortType]='single'
       [loadingIndicator]='true'
-      [reorderable]='true'
-      [limit]='10'
+      [reorderable]='false'
+      [limit]='20'
       (page)='onPage($event)'>
       <!-- Row Detail Template -->
       <ngx-datatable-row-detail 
         #myDetailRow 
-        [rowHeight]='300' 
+        [rowHeight]='400' 
         (toggle)='onDetailToggle($event)'
       >
         <ng-template 
@@ -43,8 +43,8 @@
       <!-- Column Templates -->
       <ngx-datatable-column
         headerClass='header'
-        [width]="15"
-        [resizeable]="false"
+        [width]="30"
+        [resizeable]="true"
         [sortable]="false"
         [draggable]="false"
         [canAutoResize]="false"
@@ -53,18 +53,18 @@
           <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row)"></a>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Index" width="40" headerClass='header' [canAutoResize]="true">
+      <ngx-datatable-column name="Index" [resizeable]="true" width="40" headerClass='header' [canAutoResize]="true">
         <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>{{rowIndex}}</ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Expanded" width="50" headerClass='header' [canAutoResize]="true">
+      <ngx-datatable-column name="Expanded" [resizeable]="true" width="50" headerClass='header' [canAutoResize]="true">
         <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>{{expanded === 1}}</ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Name" width="200" headerClass='header' [canAutoResize]="true">
+      <ngx-datatable-column name="Name" [resizeable]="true" width="300" headerClass='header' [canAutoResize]="true">
         <ng-template let-value="value" ngx-datatable-cell-template>{{value}}</ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Gender" width="200" headerClass='header' [canAutoResize]="true">
+      <ngx-datatable-column name="Gender" [resizeable]="true" width="300" headerClass='header' [canAutoResize]="true">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template><i [innerHTML]="row['name']"></i> and <i>{{value}}</i></ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Age" width="40" headerClass='header' [canAutoResize]="true"></ngx-datatable-column>
+      <ngx-datatable-column name="Age" [resizeable]="true" width="40" headerClass='header' [canAutoResize]="true"></ngx-datatable-column>
     </ngx-datatable>
   </div>
